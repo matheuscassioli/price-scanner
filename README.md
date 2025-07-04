@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # list-tasks
 Projeto junto aos comando do curso de React-native, porém com adaptações e funcionalidades personalizadas para aprimorar a experiência do usuário
 =======
