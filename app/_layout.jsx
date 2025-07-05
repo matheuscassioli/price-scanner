@@ -1,54 +1,88 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export const Login = () => {
-  const [userInfo, setUserInfo] = useState({ user: '', password: '' });
+  const [authUser, setAuthUser] = useState({ user: '', password: '' });
 
   const onChangeUserLogin = (value, key) => {
-    setUserInfo((prev) => ({
+    setAuthUser((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
 
+  const login = () => {
+    alert(`Usuário: ${authUser.user}\nSenha: ${authUser.password}`)
+  }
+
   return (
-    <View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputContainerLabel}>usuario</Text>
-        <TextInput
-          value={userInfo['user']}
-          placeholder="Digite seu usuário"
-          onChangeText={(e) => onChangeUserLogin(e, 'user')}
-          style={styles.input}
-        />
-      </View>
+    <LinearGradient
+      style={styles.container}
+      colors={['#0f0c29', '#302b63', '#24243e']}>
+      <Text style={styles.title}>Bem-vindo</Text>
+      <View  >
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputContainerLabel}>usuario</Text>
+          <TextInput
+            value={authUser['user']}
+            placeholder="Digite seu usuário"
+            onChangeText={(e) => onChangeUserLogin(e, 'user')} RR
+            style={styles.input}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputContainerLabel}>senha</Text>
-        <TextInput
-          value={userInfo['password']}
-          onChangeText={(e) => onChangeUserLogin(e, 'password')}
-          placeholder="Digite sua senha"
-          style={styles.input} />
-      </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputContainerLabel}>senha</Text>
+          <TextInput
+            value={authUser['password']}
+            onChangeText={(e) => onChangeUserLogin(e, 'password')}
+            placeholder="Digite sua senha"
+            style={styles.input} />
+        </View>
 
-      <Pressable
-        onPress={() => alert(`Usuário: ${userInfo.user}\nSenha: ${userInfo.password}`)}
-        style={{ backgroundColor: "purple" }}
-      >
-        <Text>Entrar</Text>
-      </Pressable>
-    </View>
+        <Pressable
+          onPress={() => login()}
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#6a0dad" : "purple",
+              paddingVertical: 12,
+              paddingHorizontal: 24,
+              borderRadius: 8,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
+              elevation: 5,
+              marginTop:10, 
+              marginLeft: 20,
+              marginRight: 20,
+              alignItems: "center",
+            },
+          ]}
+        >
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+            Entrar
+          </Text>
+        </Pressable>
+      </View>
+    </LinearGradient>
   );
+
 };
 
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.safeArea}>
-        <Login />
-      </SafeAreaView>
+      <LinearGradient
+        style={styles.container}
+        colors={['#0f0c29', '#302b63', '#24243e']}>
+        <SafeAreaView style={styles.safeArea}>
+          <Login />
+
+        </SafeAreaView>
+      </LinearGradient>
     </SafeAreaProvider>
   );
 }
@@ -59,13 +93,12 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: "#fff",
+    justifyContent: 'center'
   },
   container: {
-    padding: 16,
     justifyContent: "center",
-    alignItems: "center",
     flexGrow: 1,
+    padding: 1
   },
   text: {
     fontSize: 18,
@@ -75,13 +108,18 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 1,
+    borderColor: 'white',
     padding: 10,
+    color: 'white'
   },
   inputContainerLabel: {
     padding: 10,
     marginBottom: -18,
+    color: 'white',
   },
   inputContainer: {
-    backgroundColor: "yellow",
+    color: 'white',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });
