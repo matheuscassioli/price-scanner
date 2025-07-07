@@ -1,113 +1,59 @@
-import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
+import { Login } from "../components/_login";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AuthContext, AuthProvider } from "../contexts/AuthContext/AuthContext";
+import { useContext } from "react";
 
-export const Login = () => {
-  const [authUser, setAuthUser] = useState({ user: '', password: '' });
+const Stack = createNativeStackNavigator();
 
-  const [loading, setLoading] = useState(false);
+function Routes() {
 
-  const handlePressLogin = async () => {
-    setLoading(true);
-
-    setTimeout(() => {
-      setLoading(false)
-    }, 5000)
-  };
-
-  const onChangeUserLogin = (value, key) => {
-    setAuthUser((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
+  const { authUser } = useContext(AuthContext)
 
   return (
-    <LinearGradient
-      style={styles.container}
-      colors={['#0f0c29', '#302b63', '#24243e']}>
-      <View style={styles.logoContainer}>
-        <Image
-          style={styles.logo}
-          source={require('../assets/CassiDEV.png')}
-        />
-      </View>
-      <View  >
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputContainerLabel}>usuario</Text>
-          <TextInput
-            value={authUser['user']}
-            placeholder="Digite seu usuário"
-            onChangeText={(e) => onChangeUserLogin(e, 'user')} RR
-            style={styles.input}
-          />
-        </View>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputContainerLabel}>senha</Text>
-          <TextInput
-            value={authUser['password']}
-            onChangeText={(e) => onChangeUserLogin(e, 'password')}
-            placeholder="Digite sua senha"
-            style={styles.input} />
-        </View>
+      {!authUser &&
+        <Stack.Screen
+          options={{
+            animation: 'slide_from_left',
+          }}
+          name="Login"
+          component={Login} />}
 
-        <Pressable
-          onPress={() => handlePressLogin()}
-          disabled={loading}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? "#6a0dad" : "purple",
-              paddingVertical: 12,
-              paddingHorizontal: 24,
-              borderRadius: 8,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.25,
-              shadowRadius: 4,
-              elevation: 5,
-              marginTop: 10,
-              marginLeft: 20,
-              marginRight: 20,
-              alignItems: "center",
-              opacity: loading ? 0.6 : 1,
-            },
-          ]}
-        >
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-            {loading ? (
-              <Text style={styles.text}>Aguarde...</Text>
-            ) : (
-              <Text style={styles.text}>Entrar</Text>
-            )}
-          </Text>
-        </Pressable>
-      </View>
-    </LinearGradient>
+      {authUser &&
+        <Stack.Screen
+          options={{
+            animation: 'slide_from_left',
+          }}
+          name="List"
+          component={List} />}
+
+    </Stack.Navigator>
   );
-
-};
+}
+const List = () => {
+  return <View><Text>Aqui</Text></View>
+}
 
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <LinearGradient
-        style={styles.container}
-        colors={['#0f0c29', '#302b63', '#24243e']}>
-        <SafeAreaView style={styles.safeArea}>
-          <Login />
-
-        </SafeAreaView>
+      <LinearGradient style={styles.container} colors={['#0f0c29', '#302b63', '#24243e']}>
+        <AuthProvider>
+          <SafeAreaView style={styles.safeArea}>
+            <Routes />
+          </SafeAreaView>
+        </AuthProvider>
       </LinearGradient>
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  loginContainer: {
-    backgroundColor: "lightblue",
-  },
   safeArea: {
     flex: 1,
     justifyContent: 'center'
@@ -117,35 +63,4 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 1
   },
-  text: {
-    fontSize: 18,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    borderColor: 'white',
-    padding: 10,
-    color: 'white'
-  },
-  inputContainerLabel: {
-    padding: 10,
-    marginBottom: -18,
-    color: 'white',
-  },
-  inputContainer: {
-    color: 'white',
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  logoContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logo: {
-    width: 90,
-    height: 90,
-    borderRadius: 8
-  }
 });
