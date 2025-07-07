@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -21,7 +21,12 @@ export const Login = () => {
     <LinearGradient
       style={styles.container}
       colors={['#0f0c29', '#302b63', '#24243e']}>
-      <Text style={styles.title}>Bem-vindo</Text>
+      <View style={styles.logoContainer}>
+        <Image
+          style={styles.logo}
+          source={require('../assets/CassiDEV.png')}
+        />
+      </View>
       <View  >
         <View style={styles.inputContainer}>
           <Text style={styles.inputContainerLabel}>usuario</Text>
@@ -55,7 +60,7 @@ export const Login = () => {
               shadowOpacity: 0.25,
               shadowRadius: 4,
               elevation: 5,
-              marginTop:10, 
+              marginTop: 10,
               marginLeft: 20,
               marginRight: 20,
               alignItems: "center",
@@ -122,4 +127,14 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  logoContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 90,
+    height: 90,
+    borderRadius: 50
+  }
 });
