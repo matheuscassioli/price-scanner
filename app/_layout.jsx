@@ -6,16 +6,22 @@ import { LinearGradient } from 'expo-linear-gradient';
 export const Login = () => {
   const [authUser, setAuthUser] = useState({ user: '', password: '' });
 
+  const [loading, setLoading] = useState(false);
+
+  const handlePressLogin = async () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 5000)
+  };
+
   const onChangeUserLogin = (value, key) => {
     setAuthUser((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
-
-  const login = () => {
-    alert(`Usuário: ${authUser.user}\nSenha: ${authUser.password}`)
-  }
 
   return (
     <LinearGradient
@@ -48,7 +54,8 @@ export const Login = () => {
         </View>
 
         <Pressable
-          onPress={() => login()}
+          onPress={() => handlePressLogin()}
+          disabled={loading}
           style={({ pressed }) => [
             {
               backgroundColor: pressed ? "#6a0dad" : "purple",
@@ -64,11 +71,16 @@ export const Login = () => {
               marginLeft: 20,
               marginRight: 20,
               alignItems: "center",
+              opacity: loading ? 0.6 : 1,
             },
           ]}
         >
           <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-            Entrar
+            {loading ? (
+              <Text style={styles.text}>Aguarde...</Text>
+            ) : (
+              <Text style={styles.text}>Entrar</Text>
+            )}
           </Text>
         </Pressable>
       </View>
@@ -107,7 +119,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: "red",
   },
   input: {
     height: 40,
@@ -135,6 +146,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 90,
     height: 90,
-    borderRadius: 50
+    borderRadius: 8
   }
 });
