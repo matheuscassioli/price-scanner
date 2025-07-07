@@ -9,7 +9,7 @@ export const Login = () => {
     const { loginOrLogoutUser, loadingAuth } = useContext(AuthContext)
 
     const handlePressLogin = async () => {
-        loginOrLogoutUser(true)
+        loginOrLogoutUser(true, authUser)
     };
 
     const onChangeUserLogin = (value, key) => {
@@ -18,6 +18,13 @@ export const Login = () => {
             [key]: value,
         }));
     };
+
+    const verifyDisabled = () => {
+        if (authUser.user == '' || authUser.password == '') {
+            return true
+        }
+        return false
+    }
 
     return (
         <LinearGradient
@@ -50,8 +57,8 @@ export const Login = () => {
 
                 <Pressable
                     onPress={() => handlePressLogin()}
-                    disabled={loadingAuth}
-                    style={[styles.buttonEntry, { opacity: loadingAuth ? 0.6 : 1 }]}>
+                    disabled={verifyDisabled()}
+                    style={[styles.buttonEntry, { opacity: loadingAuth || verifyDisabled() ? 0.6 : 1 }]}>
                     <Text style={styles.text}>{loadingAuth ? 'Aguarde...' : 'Entrar'}</Text>
                 </Pressable>
             </View>

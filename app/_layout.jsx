@@ -1,11 +1,12 @@
 
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Login } from "../components/_login";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext, AuthProvider } from "../contexts/AuthContext/AuthContext";
 import { useContext } from "react";
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,24 +20,32 @@ function Routes() {
       {!authUser &&
         <Stack.Screen
           options={{
-            animation: 'slide_from_left',
+            animation: 'slide_from_right',
           }}
           name="Login"
           component={Login} />}
 
       {authUser &&
         <Stack.Screen
+          name="Lista"
           options={{
-            animation: 'slide_from_left',
+            animation: 'slide_from_right',
           }}
-          name="List"
           component={List} />}
-
     </Stack.Navigator>
   );
 }
 const List = () => {
-  return <View><Text>Aqui</Text></View>
+
+  const { loginOrLogoutUser } = useContext(AuthContext)
+
+  return <View>
+    <Pressable
+      style={styles.exitButton}
+      onPress={() => loginOrLogoutUser(false)}>
+      <Text>Sair </Text>
+    </Pressable>
+  </View>
 }
 
 export default function RootLayout() {
@@ -46,6 +55,7 @@ export default function RootLayout() {
         <AuthProvider>
           <SafeAreaView style={styles.safeArea}>
             <Routes />
+            <Toast />
           </SafeAreaView>
         </AuthProvider>
       </LinearGradient>
@@ -63,4 +73,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 1
   },
+  exitButton: {
+    backgroundColor: 'red'
+  }
 });
