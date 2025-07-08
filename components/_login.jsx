@@ -33,8 +33,7 @@ export const Login = () => {
             <View style={styles.logoContainer}>
                 <Image
                     style={styles.logo}
-                    source={require('../assets/CassiDEV.png')}
-                />
+                    source={require('../assets/CassiDEV.png')} />
             </View>
             <View  >
                 <View style={styles.inputContainer}>
