@@ -1,7 +1,9 @@
 import { useContext, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
 import { AuthContext } from '../contexts/AuthContext/AuthContext';
+import { colors } from '../theme/colors';
+import { GradientBackground } from './GradientBackground';
+
 
 export const Login = () => {
     const [authUser, setAuthUser] = useState({ user: '', password: '' });
@@ -27,9 +29,7 @@ export const Login = () => {
     }
 
     return (
-        <LinearGradient
-            style={styles.container}
-            colors={['#0f0c29', '#302b63', '#24243e']}>
+        <GradientBackground style={{ justifyContent: 'center' }}>
             <View style={styles.logoContainer}>
                 <Image
                     style={styles.logo}
@@ -62,38 +62,33 @@ export const Login = () => {
                     <Text style={styles.text}>{loadingAuth ? 'Aguarde...' : 'Entrar'}</Text>
                 </Pressable>
             </View>
-        </LinearGradient>
+        </GradientBackground>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: "center",
-        flexGrow: 1,
-        padding: 1
-    },
     loginContainer: {
         backgroundColor: "lightblue",
     },
     text: {
         fontSize: 18,
-        color: 'white'
+        color: colors.white
     },
     input: {
         height: 40,
         margin: 12,
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: colors.white,
         padding: 10,
-        color: 'white'
+        color: colors.white
     },
     inputContainerLabel: {
         padding: 10,
         marginBottom: -18,
-        color: 'white',
+        color: colors.white,
     },
     inputContainer: {
-        color: 'white',
+        color: colors.white,
         paddingLeft: 10,
         paddingRight: 10,
     },
@@ -108,7 +103,7 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     buttonEntry: {
-        backgroundColor: "purple",
+        backgroundColor: colors.primary,
         paddingVertical: 12,
         paddingHorizontal: 24,
         borderRadius: 8,

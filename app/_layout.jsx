@@ -1,5 +1,5 @@
 
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Login } from "../components/_login";
@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext, AuthProvider } from "../contexts/AuthContext/AuthContext";
 import { useContext } from "react";
 import Toast from 'react-native-toast-message';
+import { ListTasks } from "../components/ListTasks";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +18,7 @@ function Routes() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-      {!authUser &&
+      {authUser &&
         <Stack.Screen
           options={{
             animation: 'slide_from_right',
@@ -25,27 +26,15 @@ function Routes() {
           name="Login"
           component={Login} />}
 
-      {authUser &&
+      {!authUser &&
         <Stack.Screen
-          name="Lista"
+          name="ListTasks"
           options={{
             animation: 'slide_from_right',
           }}
-          component={List} />}
+          component={ListTasks} />}
     </Stack.Navigator>
   );
-}
-const List = () => {
-
-  const { loginOrLogoutUser } = useContext(AuthContext)
-
-  return <View>
-    <Pressable
-      style={styles.exitButton}
-      onPress={() => loginOrLogoutUser(false)}>
-      <Text>Sair </Text>
-    </Pressable>
-  </View>
 }
 
 export default function RootLayout() {
@@ -72,8 +61,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexGrow: 1,
     padding: 1
-  },
-  exitButton: {
-    backgroundColor: 'red'
   }
 });
