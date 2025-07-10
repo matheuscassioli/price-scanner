@@ -3,6 +3,7 @@ import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-nativ
 import { AuthContext } from '../contexts/AuthContext/AuthContext';
 import { colors } from '../theme/colors';
 import { GradientBackground } from './GradientBackground';
+import { globalStyles } from '../theme/globals';
 
 
 export const Login = () => {
@@ -36,22 +37,22 @@ export const Login = () => {
                     source={require('../assets/CassiDEV.png')} />
             </View>
             <View  >
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputContainerLabel}>usuario</Text>
+                <View style={globalStyles.inputContainer}>
+                    <Text style={globalStyles.inputContainerLabel}>usuario</Text>
                     <TextInput
                         value={authUser['user']}
                         placeholder="Digite seu usuário"
                         onChangeText={(e) => onChangeUserLogin(e, 'user')} RR
-                        style={styles.input} />
+                        style={globalStyles.input} />
                 </View>
 
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputContainerLabel}>senha</Text>
+                <View style={globalStyles.inputContainer}>
+                    <Text style={globalStyles.inputContainerLabel}>senha</Text>
                     <TextInput
                         value={authUser['password']}
                         onChangeText={(e) => onChangeUserLogin(e, 'password')}
                         placeholder="Digite sua senha"
-                        style={styles.input} />
+                        style={globalStyles.input} />
                 </View>
 
                 <Pressable
@@ -72,24 +73,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         color: colors.white
-    },
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        borderColor: colors.white,
-        padding: 10,
-        color: colors.white
-    },
-    inputContainerLabel: {
-        padding: 10,
-        marginBottom: -18,
-        color: colors.white,
-    },
-    inputContainer: {
-        color: colors.white,
-        paddingLeft: 10,
-        paddingRight: 10,
     },
     logoContainer: {
         display: 'flex',

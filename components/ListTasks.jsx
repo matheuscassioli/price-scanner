@@ -1,10 +1,11 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { AuthContext } from "../contexts/AuthContext/AuthContext"
-import { Pressable, StyleSheet, View, FlatList } from "react-native"
+import { Pressable, StyleSheet, View, FlatList, TextInput } from "react-native"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { GradientBackground } from "./GradientBackground";
 import { colors } from "../theme/colors";
 import { Text } from "react-native";
+import { globalStyles } from "../theme/globals";
 
 const tasks = [
     {
@@ -22,9 +23,33 @@ const tasks = [
 ]
 
 export const ListTasks = () => {
-    return <GradientBackground style={{ backgroundColor: "yellow" }}>
-        <View style={{ backgroundColor: "yellow" }}>
+
+    const [text, setText] = useState('')
+
+    const onChangeText = () => {
+        console.log(text)
+        setText(text)
+    }
+
+    const addTask = () => {
+        alert(text, 'text')
+    }
+
+    return <GradientBackground>
+        <View >
             <ExitButton />
+
+            <View style={globalStyles.addTaskContainer}>
+                <View style={globalStyles.inputContainer}>
+                    <Text style={globalStyles.inputContainerLabel}>Adicone uma tarefa</Text>
+                    <TextInput
+                        placeholder="Digite a tarefa"
+                        style={globalStyles.input}
+                        onChangeText={onChangeText}
+                        value={text} />
+                </View>
+                <Pressable onPress={addTask}><Text>aqui</Text></Pressable>
+            </View>
 
             <View style={styles.tasksContainer}>
                 <FlatList
@@ -49,7 +74,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         zIndex: -1
     },
+    addTaskContainer: {
+        backgroundColor: 'blue'
+    }
 });
+
+const Item = ({ taskContent }) => (
+    <View>
+        <Text >{taskContent}</Text>
+    </View>
+);
 
 const ExitButton = () => {
     const { loginOrLogoutUser } = useContext(AuthContext)
@@ -61,8 +95,3 @@ const ExitButton = () => {
     </Pressable>
 }
 
-const Item = ({ taskContent }) => (
-    <View>
-        <Text >{taskContent}</Text>
-    </View>
-);
