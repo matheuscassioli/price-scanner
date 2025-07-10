@@ -7,9 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext, AuthProvider } from "../contexts/AuthContext/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import Toast from 'react-native-toast-message';
-import { ListTasks } from "../components/ListTasks";
 import SplashPreLoading from "../components/SplashPreLoading";
 import { Asset } from 'expo-asset';
+import { ListTaskContainer } from "../components/ListTasks/ListTasks";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +34,7 @@ function Routes() {
           options={{
             animation: 'slide_from_right',
           }}
-          component={ListTasks} />}
+          component={ListTaskContainer} />}
     </Stack.Navigator>
   );
 }
