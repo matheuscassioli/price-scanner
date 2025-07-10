@@ -26,9 +26,9 @@ export const ListTasks = () => {
 
     const [text, setText] = useState('')
 
-    const onChangeText = () => {
-        console.log(text)
-        setText(text)
+    const onChangeText = (e) => {
+        console.log(e)
+        setText(e)
     }
 
     const addTask = () => {
@@ -39,17 +39,22 @@ export const ListTasks = () => {
         <View >
             <ExitButton />
 
-            <View style={globalStyles.addTaskContainer}>
-                <View style={globalStyles.inputContainer}>
-                    <Text style={globalStyles.inputContainerLabel}>Adicone uma tarefa</Text>
+            <View style={styles.addTaskContainer}>
+                <View style={styles.inputWrapper}>
+                    <Text style={[globalStyles.inputContainerLabel]}>Adicione uma tarefa</Text>
                     <TextInput
                         placeholder="Digite a tarefa"
                         style={globalStyles.input}
                         onChangeText={onChangeText}
-                        value={text} />
+                        value={text}
+                    />
                 </View>
-                <Pressable onPress={addTask}><Text>aqui</Text></Pressable>
+
+                <Pressable style={styles.addButton} onPress={addTask}>
+                    <Icon name="plus" size={24} color="white" />
+                </Pressable>
             </View>
+
 
             <View style={styles.tasksContainer}>
                 <FlatList
@@ -61,22 +66,37 @@ export const ListTasks = () => {
     </GradientBackground>
 }
 
-
 const styles = StyleSheet.create({
     exitButton: {
         position: 'absolute',
         right: -8,
         top: -8,
     },
-    tasksContainer: {
-        height: 300,
-        width: '100%',
-        backgroundColor: 'red',
-        zIndex: -1
-    },
     addTaskContainer: {
-        backgroundColor: 'blue'
-    }
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+    },
+    inputWrapper: {
+        flex: 1,
+        marginRight: 0,
+        borderRadius: 8,
+        padding: 10,
+        elevation: 2, // sombra no Android
+        shadowColor: '#000', // sombra no iOS
+        shadowOffset: { width: 0, height: 1 },
+        background: "red",
+        marginLeft: -20
+    },
+    addButton: {
+        backgroundColor: colors.primary,
+        padding: 10,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20
+    },
 });
 
 const Item = ({ taskContent }) => (

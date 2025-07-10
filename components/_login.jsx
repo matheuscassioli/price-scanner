@@ -58,7 +58,7 @@ export const Login = () => {
                 <Pressable
                     onPress={() => handlePressLogin()}
                     disabled={verifyDisabled()}
-                    style={[styles.buttonEntry, { opacity: loadingAuth || verifyDisabled() ? 0.6 : 1 }]}>
+                    style={[globalStyles.button, { opacity: loadingAuth || verifyDisabled() ? 0.6 : 1 }]}>
                     <Text style={styles.text}>{loadingAuth ? 'Aguarde...' : 'Entrar'}</Text>
                 </Pressable>
             </View>
@@ -84,18 +84,4 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 8
     },
-    buttonEntry: {
-        backgroundColor: colors.primary,
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 8,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        marginTop: 10,
-        marginLeft: 20,
-        marginRight: 20,
-        alignItems: "center",
-    }
 });

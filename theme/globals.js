@@ -20,5 +20,18 @@ export const globalStyles = StyleSheet.create({
         padding: 10,
         color: colors.white
     },
-
+    button: {
+        backgroundColor: colors.primary,
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        marginTop: 10,
+        marginLeft: 20,
+        marginRight: 20,
+        alignItems: "center",
+    }
 })
