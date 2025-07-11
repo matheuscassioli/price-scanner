@@ -1,11 +1,11 @@
 import { useContext } from "react"
-import { View, FlatList } from "react-native"
+import { View, FlatList, StyleSheet } from "react-native"
 import { GradientBackground } from "../GradientBackground";
 import { colors } from "../../theme/colors";
 import { Text } from "react-native";
 import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext";
 import { ExitButton } from './ExitButton.jsx'
-import { TaskContainer } from "./TasksContainer.jsx";
+import { AddTaskContainer } from "./AddTaskContainer.jsx";
 
 export const ListTaskContainer = () => {
     return <TasksProvider>
@@ -14,28 +14,53 @@ export const ListTaskContainer = () => {
 }
 
 const ListTasks = () => {
-    const { tasks } = useContext(TasksContext)
+    const { tasks, flatListRef } = useContext(TasksContext)
 
-    return <GradientBackground>
-        <View >
-            <ExitButton />
+    return <GradientBackground style={{
+        justifyContent: 'center',
+        position: 'relative',
+    }}>
 
-            <TaskContainer />
+        <ExitButton />
 
-            <View>
-                <FlatList
-                    data={tasks}
-                    renderItem={({ item }) => <Item taskContent={item.taskContent} />}
-                    keyExtractor={(item) => item.taskId.toString()} />
-            </View>
+        <View style={styles.viewTasks}>
+
+            <AddTaskContainer />
+
+            <FlatList
+                ref={flatListRef}
+                style={styles.listTaskContainer}
+                data={tasks}
+                renderItem={({ item }) => <Item taskContent={item.taskContent} />}
+                keyExtractor={(item) => item.taskId.toString()} />
         </View>
     </GradientBackground>
 }
 
 const Item = ({ taskContent }) => (
     <View>
-        <Text style={{ color: colors.white }} >
+        <Text style={styles.taskItem} >
             {taskContent}
         </Text>
-    </View >
+    </View>
 );
+
+const styles = StyleSheet.create({
+    listTaskContainer: {
+        display: 'flex',
+        maxHeight: 150,
+        overflow: 'hidden',
+        paddingLeft: 12,
+        paddingRight: 12,
+    },
+    taskItem: {
+        color: colors.white,
+        padding: 4,
+    },
+    viewTasks: {
+        display: "flex",
+        height: '100%',
+        justifyContent: "center",
+        maxHeight: '300',
+    }
+})

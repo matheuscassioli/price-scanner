@@ -15,10 +15,10 @@ export function AuthProvider({ children }) {
             const { user, password } = authUserValue
 
             if (user == 'admin' && password == '1234') {
-                setAuthUser(true)
                 setTimeout(() => {
+                    setAuthUser(true)
                     setLoadingAuth(false)
-                }, 400)
+                }, 1000)
                 return
             }
             setTimeout(() => {

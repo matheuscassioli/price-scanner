@@ -61,7 +61,7 @@ export const Login = () => {
                             onSubmitEditing={() => Keyboard.dismiss}
                             onChangeText={(e) => onChangeUserLogin(e, 'password')}
                             placeholder="Digite sua senha"
-                            style={globalStyles.input} /> 
+                            style={globalStyles.input} />
                     </View>
                 </TouchableWithoutFeedback>
 

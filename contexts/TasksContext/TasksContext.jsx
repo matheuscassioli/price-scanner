@@ -1,4 +1,5 @@
-import { createContext, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
+import { showCustomToast } from '../../helpers/helpers';
 
 export const TasksContext = createContext();
 
@@ -20,13 +21,14 @@ export function TasksProvider({ children }) {
     ]
 
     const [tasks, setTasks] = useState(initialTasks)
-
     const [text, setText] = useState('')
+    const flatListRef = useRef(null)
 
     const atualizeTasks = (task) => {
         const newTask = { taskId: tasks.length + 1, taskContent: task }
         setTasks(prevTasks => [...prevTasks, newTask]);
         setText('')
+        flatListRef?.current.scrollToEnd({ animated: true });
     }
 
     const atualizeAddTaskValue = (text) => {
@@ -34,6 +36,10 @@ export function TasksProvider({ children }) {
     }
 
     const addTask = () => {
+        if (text.trim() == '') {
+            showCustomToast('O campo tarefa nao pode ser vazio.', 'error')
+            return
+        }
         atualizeTasks(text)
     }
 
@@ -44,7 +50,8 @@ export function TasksProvider({ children }) {
                 atualizeTasks,
                 text,
                 atualizeAddTaskValue,
-                addTask
+                addTask,
+                flatListRef
             }}>
             {children}
         </TasksContext.Provider>

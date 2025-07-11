@@ -6,7 +6,7 @@ import { globalStyles } from "../../theme/globals";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 
-export const TaskContainer = () => {
+export const AddTaskContainer = () => {
 
     const { text, atualizeAddTaskValue, addTask } = useContext(TasksContext)
 
