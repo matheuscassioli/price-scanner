@@ -18,7 +18,10 @@ function Routes() {
   const { authUser } = useContext(AuthContext)
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
 
       {!authUser &&
         <Stack.Screen
