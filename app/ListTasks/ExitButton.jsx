@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native"
 import { useContext } from "react"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const ExitButton = () => {
+export default function ExitButton() {
     const { loginOrLogoutUser } = useContext(AuthContext)
 
     return <Pressable

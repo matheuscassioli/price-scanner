@@ -1,16 +1,18 @@
 import { useContext } from "react"
 import { View, FlatList, StyleSheet } from "react-native"
-import { GradientBackground } from "../GradientBackground";
-import { colors } from "../../theme/colors";
+import { GradientBackground } from "../../components/GradientBackground.jsx";
+import { colors } from "../../theme/colors.js";
 import { Text } from "react-native";
-import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext";
-import { ExitButton } from './ExitButton.jsx'
-import { AddTaskContainer } from "./AddTaskContainer.jsx";
+import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext.jsx";
+import ExitButton from './ExitButton.jsx'
+import AddTaskContainer from "./AddTaskContainer.jsx";
 
-export const ListTaskContainer = () => {
-    return <TasksProvider>
-        <ListTasks />
-    </TasksProvider>
+export default function ListTaskContainer() {
+    return (
+        <TasksProvider>
+            <ListTasks />
+        </TasksProvider>
+    );
 }
 
 const ListTasks = () => {

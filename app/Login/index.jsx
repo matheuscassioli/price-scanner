@@ -1,12 +1,12 @@
 import { useContext, useState, useRef } from 'react';
 import { Image, Pressable, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { AuthContext } from '../contexts/AuthContext/AuthContext';
-import { colors } from '../theme/colors';
-import { GradientBackground } from './GradientBackground';
-import { globalStyles } from '../theme/globals';
+import { AuthContext } from '../../contexts/AuthContext/AuthContext';
+import { colors } from '../../theme/colors';
+import { GradientBackground } from '../../components/GradientBackground';
+import { globalStyles } from '../../theme/globals';
 
 
-export const Login = () => {
+export default function Login() {
     const [authUser, setAuthUser] = useState({ user: '', password: '' });
 
     const { loginOrLogoutUser, loadingAuth } = useContext(AuthContext)
@@ -36,7 +36,7 @@ export const Login = () => {
             <View style={styles.logoContainer}>
                 <Image
                     style={styles.logo}
-                    source={require('../assets/CassiDEV.png')} />
+                    source={require('../../assets/CassiDEV.png')} />
             </View>
             <View>
                 <View style={globalStyles.inputContainer}>

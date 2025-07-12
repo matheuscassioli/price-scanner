@@ -2,14 +2,14 @@
 import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from 'expo-linear-gradient';
-import { Login } from "../components/_login";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext, AuthProvider } from "../contexts/AuthContext/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import Toast from 'react-native-toast-message';
 import SplashPreLoading from "../components/SplashPreLoading";
 import { Asset } from 'expo-asset';
-import { ListTaskContainer } from "../components/ListTasks/ListTasks";
+import ListTaskContainer from "./ListTasks";
+import Login from './Login/index.jsx';
 
 const Stack = createNativeStackNavigator();
 
