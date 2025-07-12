@@ -6,6 +6,7 @@ import { Text } from "react-native";
 import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext.jsx";
 import ExitButton from './ExitButton.jsx'
 import AddTaskContainer from "./AddTaskContainer.jsx";
+import { Link } from 'expo-router';
 
 export default function ListTaskContainer() {
     return (
@@ -23,7 +24,8 @@ const ListTasks = () => {
         position: 'relative',
     }}>
 
-        <ExitButton />
+        <ExitButton /> 
+        <Link push href="/asajsas">Teste</Link>
 
         <View style={styles.viewTasks}>
 

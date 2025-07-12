@@ -4,8 +4,7 @@ import { AuthContext } from '../../contexts/AuthContext/AuthContext';
 import { colors } from '../../theme/colors';
 import { GradientBackground } from '../../components/GradientBackground';
 import { globalStyles } from '../../theme/globals';
-
-
+ 
 export default function Login() {
     const [authUser, setAuthUser] = useState({ user: '', password: '' });
 
@@ -72,7 +71,7 @@ export default function Login() {
                     <Text style={styles.text}>{loadingAuth ? 'Aguarde...' : 'Entrar'}</Text>
                 </Pressable>
             </View>
-        </GradientBackground>
+        </GradientBackground >
     );
 };
 

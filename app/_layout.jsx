@@ -10,6 +10,7 @@ import SplashPreLoading from "../components/SplashPreLoading";
 import { Asset } from 'expo-asset';
 import ListTaskContainer from "./ListTasks";
 import Login from './Login/index.jsx';
+import NotFound from "./+not-found.jsx";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +21,7 @@ function Routes() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}>
 
       {!authUser &&
@@ -38,6 +39,11 @@ function Routes() {
             animation: 'slide_from_right',
           }}
           component={ListTaskContainer} />}
+
+      {authUser && <Stack.Screen
+        name="+not-found"
+        component={NotFound} />}
+
     </Stack.Navigator>
   );
 }
