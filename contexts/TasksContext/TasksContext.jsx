@@ -31,6 +31,11 @@ export function TasksProvider({ children }) {
         flatListRef?.current.scrollToEnd({ animated: true });
     }
 
+    const deleteTask = (taskId) => {
+        const newTasks = tasks.filter(key => key.taskId !== taskId)
+        setTasks(newTasks)
+    }
+
     const atualizeAddTaskValue = (text) => {
         setText(text)
     }
@@ -51,7 +56,8 @@ export function TasksProvider({ children }) {
                 text,
                 atualizeAddTaskValue,
                 addTask,
-                flatListRef
+                flatListRef,
+                deleteTask
             }}>
             {children}
         </TasksContext.Provider>
