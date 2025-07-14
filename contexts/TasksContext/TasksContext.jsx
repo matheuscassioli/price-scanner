@@ -22,6 +22,8 @@ export function TasksProvider({ children }) {
 
     const [tasks, setTasks] = useState(initialTasks)
     const [text, setText] = useState('')
+    const [editableItem, setEditableItem] = useState('')
+
     const flatListRef = useRef(null)
 
     const atualizeTasks = (task) => {
@@ -34,6 +36,7 @@ export function TasksProvider({ children }) {
     const deleteTask = (taskId) => {
         const newTasks = tasks.filter(key => key.taskId !== taskId)
         setTasks(newTasks)
+        showCustomToast('Tarefa deletada com sucesso.', 'success')
     }
 
     const atualizeAddTaskValue = (text) => {
@@ -48,6 +51,22 @@ export function TasksProvider({ children }) {
         atualizeTasks(text)
     }
 
+    const defineEditableTask = (taskId) => {
+        setEditableItem(taskId)
+    }
+
+    const saveUpdateTask = (taskId, taskNewValue) => {
+        const updateTasks = tasks;
+        Object.keys(updateTasks).map(key => {
+            if (updateTasks[key].taskId == taskId) {
+                updateTasks[key].taskContent = taskNewValue
+            }
+        })
+        setTasks(updateTasks)
+        defineEditableTask('')
+        showCustomToast('Tarefa editada com sucesso.', 'success')
+    }
+  
     return (
         <TasksContext.Provider
             value={{
@@ -57,7 +76,10 @@ export function TasksProvider({ children }) {
                 atualizeAddTaskValue,
                 addTask,
                 flatListRef,
-                deleteTask
+                deleteTask,
+                editableItem,
+                defineEditableTask,
+                saveUpdateTask
             }}>
             {children}
         </TasksContext.Provider>
