@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { View, FlatList, StyleSheet } from "react-native"
+import { View, FlatList, StyleSheet, Pressable } from "react-native"
 import { GradientBackground } from "../../components/GradientBackground.jsx";
 import { colors } from "../../theme/colors.js";
 import { Text } from "react-native";
@@ -24,7 +24,7 @@ const ListTasks = () => {
         position: 'relative',
     }}>
 
-        <ExitButton /> 
+        <ExitButton />
         <Link push href="/asajsas">Teste</Link>
 
         <View style={styles.viewTasks}>
@@ -35,19 +35,46 @@ const ListTasks = () => {
                 ref={flatListRef}
                 style={styles.listTaskContainer}
                 data={tasks}
-                renderItem={({ item }) => <Item taskContent={item.taskContent} />}
+                renderItem={({ item }) => <Item item={item} />}
                 keyExtractor={(item) => item.taskId.toString()} />
         </View>
     </GradientBackground>
 }
 
-const Item = ({ taskContent }) => (
-    <View>
-        <Text style={styles.taskItem} >
-            {taskContent}
-        </Text>
-    </View>
-);
+const Item = ({ item }) => {
+
+    const deleteTask = (taskId) => {
+        console.log('deletar task', taskId)
+    };
+
+    const updateTask = (taskId) => {
+        console.log('editar task', taskId)
+    }
+
+    return (
+        <View style={styles.taskItemContainer}>
+
+            <Text style={styles.taskItem}>
+                {item?.taskContent}
+            </Text>
+
+            <Pressable
+                onPress={() => updateTask(item?.taskId)}>
+                <Text>
+                    editar
+                </Text>
+            </Pressable>
+
+            <Pressable
+                onPress={() => deleteTask(item?.taskId)}>
+                <Text>
+                    remover
+                </Text>
+            </Pressable>
+        </View>
+    );
+};
+
 
 const styles = StyleSheet.create({
     listTaskContainer: {
@@ -66,5 +93,8 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: "center",
         maxHeight: '300',
+    },
+    taskItemContainer: {
+        backgroundColor: 'blue'
     }
 })
