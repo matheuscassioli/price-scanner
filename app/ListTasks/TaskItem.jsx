@@ -13,7 +13,6 @@ export default function TaskItem({ item }) {
     const [taskEditValue, setTaskEditValue] = useState(taskContent)
 
     const isEditableField = editableItem == taskId
-  
 
     const SaveButton = () => {
         return <Pressable
@@ -48,25 +47,35 @@ export default function TaskItem({ item }) {
         </Pressable>
     }
 
+    const UndoButton = () => {
+        return (
+            <Pressable onPress={() => undoTask(taskId)}>
+                <Icon
+                    name="undo"
+                    size={30}
+                    color="orange" />
+            </Pressable>
+        );
+    };
+
+
+    const undoTask = () => {
+        setTaskEditValue(taskContent)
+    }
+
     return (
         <View style={styles.taskItemContainer}>
 
-            {isEditableField && <View>
-                <TextInput
-                    style={styles.inputEditableTask}
-                    onChangeText={setTaskEditValue}
-                    value={taskEditValue} />
-            </View>}
+            {isEditableField && <TextInput style={styles.inputEditableTask} onChangeText={setTaskEditValue} value={taskEditValue} />}
 
-            {!isEditableField && <Text style={styles.taskItem}>
-                {taskContent}
-            </Text>}
+            {!isEditableField && <Text style={styles.taskItem}>{taskContent}</Text>}
 
             <View style={styles.actionsContainer}>
 
                 {isEditableField ? <SaveButton /> : <EditButton />}
 
-                <DeleteButton />
+                {isEditableField ? <UndoButton /> : <DeleteButton />}
+
             </View>
         </View >
     );
@@ -90,8 +99,9 @@ const styles = StyleSheet.create({
     },
     inputEditableTask: {
         borderWidth: 1,
-        borderColor: colors.white,
+        width: '80%',
+        borderColor: 'gray',
         padding: 2,
-        color: colors.white
+        color: colors.white,
     }
 })
