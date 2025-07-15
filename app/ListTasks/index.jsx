@@ -1,5 +1,5 @@
-import { useContext, useState } from "react"
-import { View, FlatList, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform } from "react-native"
+import { useContext, useRef, useState } from "react"
+import { View, FlatList, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform, Animated } from "react-native"
 import { GradientBackground } from "../../components/GradientBackground.jsx";
 import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext.jsx";
 import ExitButton from './ExitButton.jsx'
@@ -25,14 +25,38 @@ const ListTasks = () => {
     const [isInputVisible, setIsInputVisible] = useState(false);
     const { tasks, flatListRef, addTaskInputRef } = useContext(TasksContext)
 
+
+    const animation = useRef(new Animated.Value(0)).current;
+
     const openAddTask = () => {
-        setIsInputVisible(true)
+        setIsInputVisible(true);
+        Animated.timing(animation, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+        }).start();
+
         setTimeout(() => {
             if (addTaskInputRef.current) {
-                addTaskInputRef.current.focus();
+                addTaskInputRef.current.focus()
             }
-        }, 100)
-    }
+        }, 300)
+    };
+
+    const closeAddTask = () => {
+        Animated.timing(animation, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+        }).start(() => setIsInputVisible(false));
+    };
+
+    const translateY = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [50, 0],
+    });
+
+    const opacity = animation;
 
     return <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -56,11 +80,17 @@ const ListTasks = () => {
                     keyExtractor={(item) => item.taskId.toString()} />
             </View>
 
-            {<AddTaskContainer isInputVisible={isInputVisible} onClose={() => setIsInputVisible(false)} />}
+            {isInputVisible && (
+                <Animated.View style={{ opacity, transform: [{ translateY }] }}>
+                    <AddTaskContainer onClose={closeAddTask} />
+                </Animated.View>
+            )}
 
-            {!isInputVisible && <Pressable style={styles.addButton} onPress={() => openAddTask()}>
-                <Icon name="plus" size={24} color="white" />
-            </Pressable>}
+            {!isInputVisible && (
+                <Pressable style={styles.addButton} onPress={openAddTask}>
+                    <Icon name="plus" size={24} color="white" />
+                </Pressable>
+            )}
 
         </GradientBackground>
     </KeyboardAvoidingView>

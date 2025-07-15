@@ -6,7 +6,7 @@ import { globalStyles } from "../../theme/globals";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 
-export default function AddTaskContainer({ isInputVisible, onClose }) {
+export default function AddTaskContainer({ onClose }) {
 
     useEffect(() => {
         const keyboardDidHideListener = Keyboard.addListener(
@@ -24,21 +24,19 @@ export default function AddTaskContainer({ isInputVisible, onClose }) {
 
     return <View style={styles.addTaskContainer}>
 
-        {isInputVisible && <>
-            <View style={styles.inputWrapper}>
-                <Text style={[globalStyles.inputContainerLabel]}>Adicione uma tarefa</Text>
-                <TextInput
-                    placeholder="Digite a tarefa"
-                    ref={addTaskInputRef}
-                    style={globalStyles.input}
-                    onChangeText={atualizeAddTaskValue}
-                    value={text} />
-            </View>
+        <View style={styles.inputWrapper}>
+            <Text style={[globalStyles.inputContainerLabel]}>Adicione uma tarefa</Text>
+            <TextInput
+                placeholder="Digite a tarefa"
+                ref={addTaskInputRef}
+                style={globalStyles.input}
+                onChangeText={atualizeAddTaskValue}
+                value={text} />
+        </View>
 
-            <Pressable style={styles.addButton} onPress={addTask}>
-                <Icon name="plus" size={24} color="white" />
-            </Pressable>
-        </>}
+        <Pressable style={styles.addButton} onPress={addTask}>
+            <Icon name="plus" size={24} color="white" />
+        </Pressable>
 
     </View>
 }
