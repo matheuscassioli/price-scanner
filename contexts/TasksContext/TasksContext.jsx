@@ -25,6 +25,7 @@ export function TasksProvider({ children }) {
     const [editableItem, setEditableItem] = useState('')
 
     const flatListRef = useRef(null)
+    const addTaskInputRef = useRef(null)
 
     const atualizeTasks = (task) => {
         const newTask = { taskId: tasks.length + 1, taskContent: task }
@@ -66,7 +67,7 @@ export function TasksProvider({ children }) {
         defineEditableTask('')
         showCustomToast('Tarefa editada com sucesso.', 'success')
     }
-  
+
     return (
         <TasksContext.Provider
             value={{
@@ -79,7 +80,8 @@ export function TasksProvider({ children }) {
                 deleteTask,
                 editableItem,
                 defineEditableTask,
-                saveUpdateTask
+                saveUpdateTask,
+                addTaskInputRef
             }}>
             {children}
         </TasksContext.Provider>

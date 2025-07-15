@@ -19,7 +19,7 @@ export default function TaskItem({ item }) {
             onPress={() => saveUpdateTask(taskId, taskEditValue)}>
             <Icon
                 name="save"
-                size={30}
+                size={26}
                 color="green" />
         </Pressable>
     }
@@ -31,8 +31,8 @@ export default function TaskItem({ item }) {
             onPress={() => defineEditableTask(taskId)}>
             <Icon
                 name="edit"
-                size={30}
-                color={'yellow'} />
+                size={26}
+                color={colors.white} />
         </Pressable>
     }
     const DeleteButton = () => {
@@ -42,7 +42,7 @@ export default function TaskItem({ item }) {
             onPress={() => deleteTask(taskId)}>
             <Icon
                 name="delete"
-                size={30}
+                size={26}
                 color={'red'} />
         </Pressable>
     }
@@ -52,7 +52,7 @@ export default function TaskItem({ item }) {
             <Pressable onPress={() => undoTask(taskId)}>
                 <Icon
                     name="undo"
-                    size={30}
+                    size={26}
                     color="orange" />
             </Pressable>
         );
@@ -82,26 +82,38 @@ export default function TaskItem({ item }) {
 };
 
 const styles = StyleSheet.create({
-    taskItem: {
-        color: colors.white,
-        padding: 4,
-    },
     taskItemContainer: {
-        display: 'flex',
+        backgroundColor: '#2c2c2e',
+        borderRadius: 12,
+        padding: 12,
+        marginBottom: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
         flexDirection: 'row',
-        alignItems: "center",
+        alignItems: 'center',
         justifyContent: 'space-between',
     },
-    actionsContainer: {
-        display: "flex",
-        flexDirection: "row",
-        gap: 10,
+    taskItem: {
+        color: colors.white,
+        fontSize: 16,
+        flex: 1,
+        paddingRight: 10,
     },
     inputEditableTask: {
-        borderWidth: 1,
-        width: '80%',
-        borderColor: 'gray',
-        padding: 2,
+        borderBottomWidth: 1,
+        borderColor: '#666',
+        padding: 4,
         color: colors.white,
-    }
-})
+        fontSize: 16,
+        flex: 1,
+        marginRight: 10,
+    },
+    actionsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+});
