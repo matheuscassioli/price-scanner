@@ -11,6 +11,7 @@ import { Asset } from 'expo-asset';
 import ListTaskContainer from "./ListTasks";
 import Login from './Login/index.jsx';
 import NotFound from "./+not-found.jsx";
+import { colors } from "../theme/colors.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -75,7 +76,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <LinearGradient style={styles.container} colors={['#0f0c29', '#302b63', '#24243e']}>
+      <View style={styles.container}  >
         <AuthProvider>
           <SafeAreaView style={styles.safeArea}>
             <Routes />
@@ -87,7 +88,7 @@ export default function RootLayout() {
             )}
           </SafeAreaView>
         </AuthProvider>
-      </LinearGradient>
+      </View>
     </SafeAreaProvider>
   );
 }
@@ -95,6 +96,7 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background
   },
   safeArea: {
     flex: 1,

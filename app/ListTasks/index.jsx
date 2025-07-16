@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from "react"
 import { View, FlatList, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform, Animated } from "react-native"
-import { GradientBackground } from "../../components/GradientBackground.jsx";
 import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext.jsx";
 import ExitButton from './ExitButton.jsx'
 import AddTaskContainer from "./AddTaskContainer.jsx";
@@ -24,7 +23,6 @@ const ListTasks = () => {
 
     const [isInputVisible, setIsInputVisible] = useState(false);
     const { tasks, flatListRef, addTaskInputRef } = useContext(TasksContext)
-
 
     const animation = useRef(new Animated.Value(0)).current;
 
@@ -62,37 +60,33 @@ const ListTasks = () => {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-        <GradientBackground style={{
-            justifyContent: 'center',
-            position: 'relative',
-        }}>
 
-            <ExitButton />
 
-            <View style={styles.viewTasks}>
-                <FlatList
-                    ref={flatListRef}
-                    contentContainerStyle={{ paddingBottom: 100, paddingTop: 20 }}
-                    style={styles.listTaskContainer}
-                    data={tasks}
-                    ListEmptyComponent={<EmptyListComponent />}
-                    renderItem={({ item }) => <TaskItem item={item} />}
-                    keyExtractor={(item) => item.taskId.toString()} />
-            </View>
+        <ExitButton />
 
-            {isInputVisible && (
-                <Animated.View style={{ opacity, transform: [{ translateY }] }}>
-                    <AddTaskContainer onClose={closeAddTask} />
-                </Animated.View>
-            )}
+        <View style={styles.viewTasks}>
+            <FlatList
+                ref={flatListRef}
+                contentContainerStyle={{ paddingBottom: 100, paddingTop: 20 }}
+                style={styles.listTaskContainer}
+                data={tasks}
+                ListEmptyComponent={<EmptyListComponent />}
+                renderItem={({ item }) => <TaskItem item={item} />}
+                keyExtractor={(item) => item.taskId.toString()} />
+        </View>
 
-            {!isInputVisible && (
-                <Pressable style={styles.addButton} onPress={openAddTask}>
-                    <Icon name="plus" size={24} color="white" />
-                </Pressable>
-            )}
+        {isInputVisible && (
+            <Animated.View style={{ opacity, transform: [{ translateY }] }}>
+                <AddTaskContainer onClose={closeAddTask} />
+            </Animated.View>
+        )}
 
-        </GradientBackground>
+        {!isInputVisible && (
+            <Pressable style={styles.addFakeButton} onPress={openAddTask}>
+                <Icon name="plus" size={24} color="white" />
+            </Pressable>
+        )}
+
     </KeyboardAvoidingView>
 }
 
@@ -101,10 +95,10 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         paddingTop: 8,
+        backgroundColor: colors.background
     },
     viewTasks: {
         flex: 1,
-        paddingBottom: 24,
         justifyContent: "flex-start",
     },
     fab: {
@@ -123,12 +117,15 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
-    addButton: {
+    addFakeButton: {
         backgroundColor: colors.primary,
         padding: 10,
-        borderRadius: 10,
+        borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center',
+        width: 50,
+        position: "absolute",
+        bottom: 40,
+        right: 20,
     },
-
 });

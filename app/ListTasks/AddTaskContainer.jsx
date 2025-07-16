@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-        marginBottom: 20
+        marginBottom: 20,
+        backgroundColor: colors.background
     },
     inputWrapper: {
         flex: 1,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     addButton: {
         backgroundColor: colors.primary,
         padding: 10,
-        borderRadius: 10,
+        borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20

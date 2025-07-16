@@ -84,7 +84,7 @@ export default function TaskItem({ item }) {
 const styles = StyleSheet.create({
     taskItemContainer: {
         backgroundColor: '#2c2c2e',
-        borderRadius: 12,
+        borderRadius: 4,
         padding: 12,
         marginBottom: 10,
         shadowColor: '#000',

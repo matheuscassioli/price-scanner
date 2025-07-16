@@ -18,7 +18,8 @@ export default function ExitButton() {
 const styles = StyleSheet.create({
     exitButton: {
         position: 'absolute',
-        right: 0,
-        top: 0,
+        right: 10,
+        top: 10,
+        zIndex:1
     }
 })

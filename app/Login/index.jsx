@@ -1,10 +1,10 @@
 import { useContext, useState, useRef } from 'react';
-import { Image, Pressable, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from "react-native";
 import { AuthContext } from '../../contexts/AuthContext/AuthContext';
 import { colors } from '../../theme/colors';
-import { GradientBackground } from '../../components/GradientBackground';
 import { globalStyles } from '../../theme/globals';
- 
+import RenderInput from '../../components/Input/RenderInput'
+
 export default function Login() {
     const [authUser, setAuthUser] = useState({ user: '', password: '' });
 
@@ -28,57 +28,63 @@ export default function Login() {
         }
         return false
     }
+    const handleUserSubmit = (isUserInput = false) => {
+        Keyboard.dismiss()
+        if (isUserInput) {
+            secondInputRef.current.focus()
+        }
+    };
 
     return (
-        <GradientBackground
-            style={styles.gradientContainer}>
-            <View style={styles.logoContainer}>
-                <Image
-                    style={styles.logo}
-                    source={require('../../assets/CassiDEV.png')} />
-            </View>
-            <View>
-                <View style={globalStyles.inputContainer}>
-                    <Text style={globalStyles.inputContainerLabel}>usuario</Text>
-                    <TextInput
-                        value={authUser['user']}
-                        onSubmitEditing={() => {
-                            secondInputRef.current.focus();
-                            Keyboard.dismiss
-                        }}
-                        placeholder="Digite seu usuário"
-                        onChangeText={(e) => onChangeUserLogin(e, 'user')}
-                        style={globalStyles.input} />
-                </View>
-
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={globalStyles.inputContainer}>
-                        <Text style={globalStyles.inputContainerLabel}>senha</Text>
-                        <TextInput
-                            value={authUser['password']}
-                            ref={secondInputRef}
-                            onSubmitEditing={() => Keyboard.dismiss}
-                            onChangeText={(e) => onChangeUserLogin(e, 'password')}
-                            placeholder="Digite sua senha"
-                            style={globalStyles.input} />
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 20}
+        >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View
+                    style={styles.containerLogin}>
+                    <View style={styles.logoContainer}>
+                        <Image
+                            style={styles.logo}
+                            source={require('../../assets/CassiDEV.png')} />
                     </View>
-                </TouchableWithoutFeedback>
+                    <View>
 
-                <Pressable
-                    onPress={() => handlePressLogin()}
-                    disabled={verifyDisabled()}
-                    style={[globalStyles.button, { opacity: loadingAuth || verifyDisabled() ? 0.6 : 1 }]}>
-                    <Text style={styles.text}>{loadingAuth ? 'Aguarde...' : 'Entrar'}</Text>
-                </Pressable>
-            </View>
-        </GradientBackground >
+                        <RenderInput
+                            label="Usuário"
+                            value={authUser['user']}
+                            onSubmitEditing={() => handleUserSubmit(true)}
+                            onChangeText={(e) => onChangeUserLogin(e, 'user')}
+                            placeholder="Digite seu usuário" />
+
+                        <RenderInput
+                            label="Senha"
+                            value={authUser['password']}
+                            onSubmitEditing={() => handleUserSubmit(false)}
+                            ref={secondInputRef}
+                            onChangeText={(e) => onChangeUserLogin(e, 'password')}
+                            placeholder="Digite sua senha" />
+
+                        <Pressable
+                            onPress={() => handlePressLogin()}
+                            disabled={verifyDisabled()}
+                            style={[globalStyles.button, { opacity: loadingAuth || verifyDisabled() ? 0.6 : 1 }]}>
+                            <Text style={styles.text}>{loadingAuth ? 'Aguarde...' : 'Entrar'}</Text>
+                        </Pressable>
+                    </View>
+                </View >
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
-    gradientContainer: {
+    containerLogin: {
+        height: '100%',
+        display: 'flex',
         justifyContent: 'center',
-        marginTop: -100,
+        backgroundColor: colors.background
     },
     loginContainer: {
         backgroundColor: "lightblue",

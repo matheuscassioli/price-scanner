@@ -18,13 +18,14 @@ export const globalStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.white,
         padding: 10,
-        color: colors.white
+        color: colors.white, 
+        borderRadius: 4
     },
     button: {
         backgroundColor: colors.primary,
         paddingVertical: 12,
         paddingHorizontal: 24,
-        borderRadius: 8,
+        borderRadius: 4,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 4,
