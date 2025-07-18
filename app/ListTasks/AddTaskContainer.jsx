@@ -47,8 +47,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-        marginBottom: 20,
-        backgroundColor: colors.background
+        marginBottom: 60, 
     },
     inputWrapper: {
         flex: 1,

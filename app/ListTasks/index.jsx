@@ -57,10 +57,8 @@ const ListTasks = () => {
     const opacity = animation;
 
     return <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-
+        style={{ flex: 1, backgroundColor: colors.background }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
 
         <ExitButton />
 
@@ -76,7 +74,12 @@ const ListTasks = () => {
         </View>
 
         {isInputVisible && (
-            <Animated.View style={{ opacity, transform: [{ translateY }] }}>
+            <Animated.View style={{
+                opacity,
+                transform: [{ translateY }],
+                backgroundColor: colors.background,
+                overflow: 'hidden',
+            }}>
                 <AddTaskContainer onClose={closeAddTask} />
             </Animated.View>
         )}

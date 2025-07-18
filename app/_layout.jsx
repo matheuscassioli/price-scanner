@@ -80,7 +80,7 @@ export default function RootLayout() {
         <AuthProvider>
           <SafeAreaView style={styles.safeArea}>
             <Routes />
-            <Toast />
+            <Toast position="top" topOffset={200} />
             {showSplash && (
               <View style={styles.splashOverlay}>
                 <SplashPreLoading onFinish={handleSplashFinish} />

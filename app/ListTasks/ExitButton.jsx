@@ -11,7 +11,7 @@ export default function ExitButton() {
     return <Pressable
         style={styles.exitButton}
         onPress={() => loginOrLogoutUser(false)}>
-        <Icon name="logout" size={24} color={colors.white} />
+        <Icon name="logout" size={20} color={colors.white} />
     </Pressable>
 }
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     exitButton: {
         position: 'absolute',
         right: 10,
-        top: 10,
+        top: 2,
         zIndex:1
     }
 })
