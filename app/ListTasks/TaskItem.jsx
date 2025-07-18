@@ -1,12 +1,13 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { colors } from "../../theme/colors";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { TasksContext } from "../../contexts/TasksContext/TasksContext";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getButtonStyle } from "../../helpers/helpers";
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeOut } from 'react-native-reanimated';
 
 export default function TaskItem({ item }) {
+
     const { deleteTask, editableItem, defineEditableTask, saveUpdateTask } = useContext(TasksContext)
 
     const { taskContent, taskId } = item
@@ -14,6 +15,14 @@ export default function TaskItem({ item }) {
     const [taskEditValue, setTaskEditValue] = useState(taskContent)
 
     const isEditableField = editableItem == taskId
+
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        if (isEditableField && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isEditableField]);
 
     const SaveButton = () => {
         return <Pressable
@@ -49,15 +58,20 @@ export default function TaskItem({ item }) {
         </Pressable>
     }
 
+    const sameValues = taskContent == taskEditValue
+
     const UndoButton = () => {
+
         return (
             <Pressable
-                style={styles.iconButton}
+                color={sameValues ? 'gray' : 'orange'}
+                style={[getButtonStyle(sameValues), styles.iconButton]}
+                disabled={sameValues}
                 onPress={() => undoTask(taskId)}>
                 <Icon
                     name="undo"
                     size={26}
-                    color="orange" />
+                    color={sameValues ? 'gray' : 'orange'} />
             </Pressable>
         );
     };
@@ -68,10 +82,13 @@ export default function TaskItem({ item }) {
     }
 
     return (
-        <Animated.View entering={FadeInDown.duration(300)}>
+        <Animated.View
+            entering={FadeInDown.duration(300)}
+            exiting={FadeOut.duration(300)}
+        >
             <View style={styles.taskItemContainer}>
 
-                {isEditableField && <TextInput style={styles.inputEditableTask} onChangeText={setTaskEditValue} value={taskEditValue} />}
+                {isEditableField && <TextInput ref={inputRef} style={styles.inputEditableTask} onChangeText={setTaskEditValue} value={taskEditValue} />}
 
                 {!isEditableField && <Text style={styles.taskItem}>{taskContent}</Text>}
 
@@ -83,7 +100,7 @@ export default function TaskItem({ item }) {
 
                 </View>
             </View >
-        </Animated.View>
+        </Animated.View >
     );
 };
 
@@ -116,7 +133,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: 16,
         flex: 1,
-        height: '99 %',
+        height: '99%',
     },
     actionsContainer: {
         flexDirection: 'row',
