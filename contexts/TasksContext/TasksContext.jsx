@@ -31,7 +31,6 @@ export function TasksProvider({ children }) {
         const newTask = { taskId: tasks.length + 1, taskContent: task }
         setTasks(prevTasks => [...prevTasks, newTask]);
         setText('')
-        flatListRef?.current.scrollToEnd({ animated: true });
     }
 
     const deleteTask = (taskId) => {

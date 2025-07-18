@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { TasksContext } from "../../contexts/TasksContext/TasksContext";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getButtonStyle } from "../../helpers/helpers";
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function TaskItem({ item }) {
     const { deleteTask, editableItem, defineEditableTask, saveUpdateTask } = useContext(TasksContext)
@@ -16,6 +17,7 @@ export default function TaskItem({ item }) {
 
     const SaveButton = () => {
         return <Pressable
+            style={styles.iconButton}
             onPress={() => saveUpdateTask(taskId, taskEditValue)}>
             <Icon
                 name="save"
@@ -26,7 +28,7 @@ export default function TaskItem({ item }) {
 
     const EditButton = () => {
         return <Pressable
-            style={getButtonStyle(editableItem !== '')}
+            style={[getButtonStyle(editableItem !== ''), styles.iconButton]}
             disabled={editableItem !== ''}
             onPress={() => defineEditableTask(taskId)}>
             <Icon
@@ -37,7 +39,7 @@ export default function TaskItem({ item }) {
     }
     const DeleteButton = () => {
         return <Pressable
-            style={getButtonStyle(editableItem !== '')}
+            style={[getButtonStyle(editableItem !== ''), styles.iconButton]}
             disabled={editableItem !== ''}
             onPress={() => deleteTask(taskId)}>
             <Icon
@@ -49,7 +51,9 @@ export default function TaskItem({ item }) {
 
     const UndoButton = () => {
         return (
-            <Pressable onPress={() => undoTask(taskId)}>
+            <Pressable
+                style={styles.iconButton}
+                onPress={() => undoTask(taskId)}>
                 <Icon
                     name="undo"
                     size={26}
@@ -64,20 +68,22 @@ export default function TaskItem({ item }) {
     }
 
     return (
-        <View style={styles.taskItemContainer}>
+        <Animated.View entering={FadeInDown.duration(300)}>
+            <View style={styles.taskItemContainer}>
 
-            {isEditableField && <TextInput style={styles.inputEditableTask} onChangeText={setTaskEditValue} value={taskEditValue} />}
+                {isEditableField && <TextInput style={styles.inputEditableTask} onChangeText={setTaskEditValue} value={taskEditValue} />}
 
-            {!isEditableField && <Text style={styles.taskItem}>{taskContent}</Text>}
+                {!isEditableField && <Text style={styles.taskItem}>{taskContent}</Text>}
 
-            <View style={styles.actionsContainer}>
+                <View style={styles.actionsContainer}>
 
-                {isEditableField ? <SaveButton /> : <EditButton />}
+                    {isEditableField ? <SaveButton /> : <EditButton />}
 
-                {isEditableField ? <UndoButton /> : <DeleteButton />}
+                    {isEditableField ? <UndoButton /> : <DeleteButton />}
 
-            </View>
-        </View >
+                </View>
+            </View >
+        </Animated.View>
     );
 };
 
@@ -105,15 +111,25 @@ const styles = StyleSheet.create({
     inputEditableTask: {
         borderBottomWidth: 1,
         borderColor: '#666',
-        padding: 4,
+        paddingVertical: 7,
+        padding: 0,
         color: colors.white,
         fontSize: 16,
         flex: 1,
-        marginRight: 10,
+        height: '99 %',
     },
     actionsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
     },
+    iconButton: {
+        padding: 8,
+        borderRadius: 6,
+        backgroundColor: '#3a3a3c',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minWidth: 40,
+        minHeight: 40,
+    }
 });

@@ -64,12 +64,14 @@ const ListTasks = () => {
 
         <View style={styles.viewTasks}>
             <FlatList
+                keyboardShouldPersistTaps="handled"
                 ref={flatListRef}
                 contentContainerStyle={{ paddingBottom: 100, paddingTop: 20 }}
                 style={styles.listTaskContainer}
                 data={tasks}
                 ListEmptyComponent={<EmptyListComponent />}
                 renderItem={({ item }) => <TaskItem item={item} />}
+                onContentSizeChange={() => flatListRef?.current?.scrollToEnd({ animated: true })}
                 keyExtractor={(item) => item.taskId.toString()} />
         </View>
 
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     },
     viewTasks: {
         flex: 1,
-        justifyContent: "flex-start",
+        justifyContent: "flex-start", 
     },
     fab: {
         position: 'absolute',

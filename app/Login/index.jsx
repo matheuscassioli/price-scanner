@@ -37,7 +37,8 @@ export default function Login() {
 
     return (
         <KeyboardAvoidingView
-            style={{ flex: 1 }}
+
+            style={{ flex: 1, backgroundColor: colors.background }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 20}
         >
@@ -75,7 +76,7 @@ export default function Login() {
                     </View>
                 </View >
             </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView >
     );
 };
 
