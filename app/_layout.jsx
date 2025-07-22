@@ -1,57 +1,19 @@
 
 import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from 'expo-linear-gradient';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthContext, AuthProvider } from "../contexts/AuthContext/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import Toast from 'react-native-toast-message';
 import SplashPreLoading from "../components/SplashPreLoading";
 import { Asset } from 'expo-asset';
-import ListTaskContainer from "./ListTasks";
-import Login from './Login/index.jsx';
-import NotFound from "./+not-found.jsx";
 import { colors } from "../theme/colors.js";
-
-const Stack = createNativeStackNavigator();
-
-function Routes() {
-
-  const { authUser } = useContext(AuthContext)
-
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-
-      {!authUser &&
-        <Stack.Screen
-          options={{
-            animation: 'slide_from_right',
-          }}
-          name="Login"
-          component={Login} />}
-
-      {authUser &&
-        <Stack.Screen
-          name="ListTasks"
-          options={{
-            animation: 'slide_from_right',
-          }}
-          component={ListTaskContainer} />}
-
-      {authUser && <Stack.Screen
-        name="+not-found"
-        component={NotFound} />}
-
-    </Stack.Navigator>
-  );
-}
-
+import { Slot } from 'expo-router';
+import Login from "./Login.jsx";
+ 
 export default function RootLayout() {
   const [isSplashReady, setIsSplashReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
+
 
   useEffect(() => {
     async function loadSplashImage() {
@@ -73,14 +35,16 @@ export default function RootLayout() {
   if (!isSplashReady) {
     return null;
   }
-
   return (
     <SafeAreaProvider>
       <View style={styles.container}  >
         <AuthProvider>
           <SafeAreaView style={styles.safeArea}>
-            <Routes />
+
+            <Slot />
+
             <Toast position="top" topOffset={200} />
+
             {showSplash && (
               <View style={styles.splashOverlay}>
                 <SplashPreLoading onFinish={handleSplashFinish} />
@@ -106,3 +70,5 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
 });
+
+

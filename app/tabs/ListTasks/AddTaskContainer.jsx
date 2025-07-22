@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react"
-import { TasksContext } from "../../contexts/TasksContext/TasksContext"
+import { useContext, useEffect } from "react" 
 import { Keyboard, Pressable, Text, TextInput, View } from "react-native"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { globalStyles } from "../../theme/globals";
-import { StyleSheet } from "react-native";
-import { colors } from "../../theme/colors";
+import { globalStyles } from "../../../theme/globals";
+import { StyleSheet } from "react-native";  
+import { TasksContext } from "../../../contexts/TasksContext/TasksContext";
+import { colors } from "../../../theme/colors";
 
 export default function AddTaskContainer({ onClose }) {
 

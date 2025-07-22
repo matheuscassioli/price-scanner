@@ -1,9 +1,9 @@
 import { useContext, useState, useRef } from 'react';
 import { Image, Pressable, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from "react-native";
-import { AuthContext } from '../../contexts/AuthContext/AuthContext';
-import { colors } from '../../theme/colors';
-import { globalStyles } from '../../theme/globals';
-import RenderInput from '../../components/Input/RenderInput'
+import RenderInput from '../components/Input/RenderInput'
+import { AuthContext } from '../contexts/AuthContext/AuthContext';
+import { colors } from '../theme/colors';
+import { globalStyles } from '../theme/globals';
 
 export default function Login() {
     const [authUser, setAuthUser] = useState({ user: '', password: '' });
@@ -48,7 +48,7 @@ export default function Login() {
                     <View style={styles.logoContainer}>
                         <Image
                             style={styles.logo}
-                            source={require('../../assets/CassiDEV.png')} />
+                            source={require('../assets/CassiDEV.png')} />
                     </View>
                     <View>
 
