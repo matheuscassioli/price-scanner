@@ -24,7 +24,7 @@ const ListTasks = () => {
     const [isInputVisible, setIsInputVisible] = useState(false);
     const { tasks, flatListRef, addTaskInputRef } = useContext(TasksContext)
 
-    const animation = useRef(new Animated.Value(0)).current;
+    const animation = useRef(new Animated.Value(0))?.current;
 
     const openAddTask = () => {
         setIsInputVisible(true);
@@ -35,7 +35,7 @@ const ListTasks = () => {
         }).start();
 
         setTimeout(() => {
-            if (addTaskInputRef.current) {
+            if (addTaskInputRef?.current) {
                 addTaskInputRef.current.focus()
             }
         }, 300)
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     },
     viewTasks: {
         flex: 1,
-        justifyContent: "flex-start", 
+        justifyContent: "flex-start",
     },
     fab: {
         position: 'absolute',
