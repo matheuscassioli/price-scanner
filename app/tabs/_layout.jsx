@@ -1,9 +1,38 @@
 import { Tabs } from "expo-router";
+import FontAwesome from '@expo/vector-icons/FontAwesome'
+import { colors } from "../../theme/colors";
 
 export default function TabsLayout() {
     return (
-        <Tabs>
-            <Tabs.Screen name="ListTasks" options={{ title: "Tarefas" }} />
+        <Tabs
+            screenOptions={{
+                tabBarLabelStyle: {
+                    fontSize: 10,
+                    fontWeight: '600',
+                },
+                tabBarStyle: {
+                    backgroundColor: colors.background,
+                    borderTopWidth: 0,
+                    paddingBottom: 2,
+                    marginBottom: 0,
+                    paddingTop: 2,
+                    height: 40,
+                },
+                tabBarActiveTintColor: '#7B61FF',
+                tabBarInactiveTintColor: colors.white
+            }}
+        >
+            <Tabs.Screen name="ListTasks" options={{
+                headerShown: false,
+                title: 'Home',
+                tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+            }} />
+
+            <Tabs.Screen name="DashBoard" options={{
+                headerShown: false,
+                title: 'Dashboard',
+                tabBarIcon: ({ color }) => <FontAwesome size={28} name="dashboard" color={color} />,
+            }} />
         </Tabs>
     );
 }

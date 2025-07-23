@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { showCustomToast } from '../../helpers/helpers';
+import { router } from 'expo-router';
 
 export const AuthContext = createContext();
 
@@ -17,7 +18,8 @@ export function AuthProvider({ children }) {
             if (user == 'admin' && password == '1234') {
                 setTimeout(() => {
                     setAuthUser(true)
-                    setLoadingAuth(false)
+                    setLoadingAuth(false) 
+                    router.replace("/tabs/ListTasks");
                 }, 1000)
                 return
             }

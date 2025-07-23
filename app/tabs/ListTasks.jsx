@@ -1,11 +1,12 @@
 import { useContext, useRef, useState } from "react"
 import { View, FlatList, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform, Animated } from "react-native"
-import ExitButton from './ExitButton.jsx'
-import TaskItem from "./TaskItem.jsx";
-import { colors } from "../../../theme/colors.js";
+import { colors } from "../../theme/colors.js";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TasksContext, TasksProvider } from "../../../contexts/TasksContext/TasksContext.jsx";
-import AddTaskContainer from "./AddTaskContainer.jsx";
+import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext.jsx";
+import TaskItem from "../../components/Tasks/TaskItem.jsx";
+import ExitButton from "../../components/Tasks/ExitButton.jsx";
+import AddTaskContainer from "../../components/Tasks/AddTaskContainer.jsx";
+
 
 export default function ListTasks() {
     return (
@@ -22,7 +23,7 @@ const EmptyListComponent = () => (
 const ListTasksContent = () => {
 
     const [isInputVisible, setIsInputVisible] = useState(false);
-    const { tasks, flatListRef, addTaskInputRef } = useContext(TasksContext)
+    const { tasks, flatListRef } = useContext(TasksContext)
 
     const animation = useRef(new Animated.Value(0))?.current;
 
@@ -33,12 +34,6 @@ const ListTasksContent = () => {
             duration: 300,
             useNativeDriver: true,
         }).start();
-
-        setTimeout(() => {
-            if (addTaskInputRef?.current) {
-                addTaskInputRef.current.focus()
-            }
-        }, 300)
     };
 
     const closeAddTask = () => {

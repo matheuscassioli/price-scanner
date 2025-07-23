@@ -9,11 +9,10 @@ import { Asset } from 'expo-asset';
 import { colors } from "../theme/colors.js";
 import { Slot } from 'expo-router';
 import Login from "./Login.jsx";
- 
+
 export default function RootLayout() {
   const [isSplashReady, setIsSplashReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
-
 
   useEffect(() => {
     async function loadSplashImage() {
@@ -35,6 +34,7 @@ export default function RootLayout() {
   if (!isSplashReady) {
     return null;
   }
+
   return (
     <SafeAreaProvider>
       <View style={styles.container}  >

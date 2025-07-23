@@ -1,10 +1,10 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { colors } from "../../../theme/colors";
+import { colors } from "../../theme/colors";
 import { useContext, useEffect, useRef, useState } from "react";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { getButtonStyle } from "../../../helpers/helpers";
+import { getButtonStyle } from "../../helpers/helpers";
 import Animated, { FadeInDown, FadeOut } from 'react-native-reanimated';
-import { TasksContext } from "../../../contexts/TasksContext/TasksContext";
+import { TasksContext } from "../../contexts/TasksContext/TasksContext";
 
 export default function TaskItem({ item }) {
 

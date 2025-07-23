@@ -1,14 +1,18 @@
-import { useContext, useEffect } from "react" 
+import { useContext, useEffect } from "react"
 import { Keyboard, Pressable, Text, TextInput, View } from "react-native"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { globalStyles } from "../../../theme/globals";
-import { StyleSheet } from "react-native";  
-import { TasksContext } from "../../../contexts/TasksContext/TasksContext";
-import { colors } from "../../../theme/colors";
+import { globalStyles } from "../../theme/globals";
+import { StyleSheet } from "react-native";
+import { TasksContext } from "../../contexts/TasksContext/TasksContext";
+import { colors } from "../../theme/colors";
 
 export default function AddTaskContainer({ onClose }) {
 
+
+    const { text, atualizeAddTaskValue, addTask, addTaskInputRef } = useContext(TasksContext)
+
     useEffect(() => {
+
         const keyboardDidHideListener = Keyboard.addListener(
             'keyboardDidHide',
             () => {
@@ -19,8 +23,6 @@ export default function AddTaskContainer({ onClose }) {
             keyboardDidHideListener.remove();
         };
     }, [])
-
-    const { text, atualizeAddTaskValue, addTask, addTaskInputRef } = useContext(TasksContext)
 
     return <View style={styles.addTaskContainer}>
 
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-        marginBottom: 60, 
+        marginBottom: 60,
     },
     inputWrapper: {
         flex: 1,
