@@ -12,7 +12,6 @@ export default function AddTaskContainer({ onClose }) {
     const { text, atualizeAddTaskValue, addTask, addTaskInputRef } = useContext(TasksContext)
 
     useEffect(() => {
-
         const keyboardDidHideListener = Keyboard.addListener(
             'keyboardDidHide',
             () => {

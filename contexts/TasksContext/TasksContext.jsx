@@ -24,7 +24,7 @@ export function TasksProvider({ children }) {
     const [text, setText] = useState('')
     const [editableItem, setEditableItem] = useState('')
 
-    const refEditCaptureInput = useRef(null)
+    const addTaskInputRef = useRef(null)
     const flatListRef = useRef(null)
 
     const atualizeTasks = (task) => {
@@ -77,7 +77,7 @@ export function TasksProvider({ children }) {
                 atualizeAddTaskValue,
                 addTask,
                 flatListRef,
-                refEditCaptureInput,
+                addTaskInputRef,
                 deleteTask,
                 editableItem,
                 defineEditableTask,

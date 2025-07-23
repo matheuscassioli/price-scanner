@@ -16,23 +16,35 @@ export default function TabsLayout() {
                     paddingBottom: 2,
                     marginBottom: 0,
                     paddingTop: 2,
-                    height: 40,
+                    height: 50,
                 },
-                tabBarActiveTintColor: '#7B61FF',
-                tabBarInactiveTintColor: colors.white
+                tabBarActiveTintColor: colors.white,
+                tabBarInactiveTintColor: colors.inactive
             }}
         >
-            <Tabs.Screen name="ListTasks" options={{
-                headerShown: false,
-                title: 'Home',
-                tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
-            }} />
+            <Tabs.Screen
+                name="ListTasks"
+                options={{
+                    headerShown: false,
+                    title: 'Home',
+                    tabBarIcon: ({ color }) =>
+                        <FontAwesome
+                            size={25}
+                            name="home"
+                            color={color} />,
+                }} />
 
-            <Tabs.Screen name="DashBoard" options={{
-                headerShown: false,
-                title: 'Dashboard',
-                tabBarIcon: ({ color }) => <FontAwesome size={28} name="dashboard" color={color} />,
-            }} />
+            <Tabs.Screen
+                name="DashBoard"
+                options={{
+                    headerShown: false,
+                    title: 'Dashboard',
+                    tabBarIcon: ({ color }) =>
+                        <FontAwesome
+                            size={25}
+                            name="dashboard"
+                            color={color} />,
+                }} />
         </Tabs>
     );
 }

@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
             if (user == 'admin' && password == '1234') {
                 setTimeout(() => {
                     setAuthUser(true)
-                    setLoadingAuth(false) 
+                    setLoadingAuth(false)
                     router.replace("/tabs/ListTasks");
                 }, 1000)
                 return
@@ -31,6 +31,7 @@ export function AuthProvider({ children }) {
         }
         setLoadingAuth(false)
         setAuthUser(false)
+        router.replace("/Login");
     }
     return (
         <AuthContext.Provider

@@ -1,5 +1,6 @@
 export const colors = {
-  primary: "purple", // roxo 
-  white: 'white' , //
-  background: '#424242'
+  primary: "purple",
+  white: 'white',
+  background: '#424242',
+  inactive: 'gray'
 };

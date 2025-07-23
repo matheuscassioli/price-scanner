@@ -23,7 +23,7 @@ const EmptyListComponent = () => (
 const ListTasksContent = () => {
 
     const [isInputVisible, setIsInputVisible] = useState(false);
-    const { tasks, flatListRef } = useContext(TasksContext)
+    const { tasks, flatListRef, addTaskInputRef } = useContext(TasksContext)
 
     const animation = useRef(new Animated.Value(0))?.current;
 
@@ -34,6 +34,12 @@ const ListTasksContent = () => {
             duration: 300,
             useNativeDriver: true,
         }).start();
+
+        setTimeout(() => {
+            if (addTaskInputRef.current) {
+                addTaskInputRef.current.focus()
+            }
+        }, 250)
     };
 
     const closeAddTask = () => {
@@ -82,10 +88,11 @@ const ListTasksContent = () => {
         )}
 
         {!isInputVisible && (
-            <Pressable style={styles.addFakeButton} onPress={openAddTask}>
+            <Pressable
+                style={styles.addFakeButton}
+                onPress={openAddTask}>
                 <Icon name="plus" size={24} color="white" />
-            </Pressable>
-        )}
+            </Pressable>)}
 
     </KeyboardAvoidingView>
 }

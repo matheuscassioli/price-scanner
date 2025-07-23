@@ -1,14 +1,13 @@
 
 import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { AuthContext, AuthProvider } from "../contexts/AuthContext/AuthContext";
-import { useContext, useEffect, useState } from "react";
+import { AuthProvider } from "../contexts/AuthContext/AuthContext";
+import { useEffect, useState } from "react";
 import Toast from 'react-native-toast-message';
 import SplashPreLoading from "../components/SplashPreLoading";
 import { Asset } from 'expo-asset';
 import { colors } from "../theme/colors.js";
 import { Slot } from 'expo-router';
-import Login from "./Login.jsx";
 
 export default function RootLayout() {
   const [isSplashReady, setIsSplashReady] = useState(false);
