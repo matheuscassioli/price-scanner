@@ -22,6 +22,7 @@ export default function TabsLayout() {
                 tabBarInactiveTintColor: colors.inactive
             }}
         >
+
             <Tabs.Screen
                 name="ListTasks"
                 options={{
@@ -44,7 +45,8 @@ export default function TabsLayout() {
                             size={25}
                             name="dashboard"
                             color={color} />,
-                }} />
+                }} /> 
+
         </Tabs>
     );
 }

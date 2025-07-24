@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
                 setTimeout(() => {
                     setAuthUser(true)
                     setLoadingAuth(false)
-                    router.replace("/tabs/ListTasks");
+                    router.replace("/tabs/DashBoard");
                 }, 1000)
                 return
             }
