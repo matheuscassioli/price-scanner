@@ -61,8 +61,6 @@ const ListTasksContent = () => {
         style={{ flex: 1, backgroundColor: colors.background }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
 
-        <ExitButton />
-
         <View style={styles.viewTasks}>
             <FlatList
                 keyboardShouldPersistTaps="handled"
@@ -86,6 +84,9 @@ const ListTasksContent = () => {
                 <AddTaskContainer onClose={closeAddTask} />
             </Animated.View>
         )}
+
+
+        <ExitButton />
 
         {!isInputVisible && (
             <Pressable

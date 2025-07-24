@@ -1,4 +1,3 @@
-// app/index.jsx
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { Redirect } from "expo-router";
