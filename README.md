@@ -1,54 +1,46 @@
-# list-tasks
-Projeto junto aos comando do curso de React-native, porém com adaptações e funcionalidades personalizadas para aprimorar a experiência do usuário
-=======
-# Welcome to your Expo app 👋
+# 📱 Meu App React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo pessoal desenvolvido com **React Native**, com o objetivo de praticar os principais **conceitos de app nativos**, como autenticação, navegação com transições animadas, manipulação de estados e CRUD. O projeto inclui uma estrutura básica de navegação pós-login com abas, além de uma experiência de uso fluida e intuitiva.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Funcionalidades
 
-   ```bash
-   npm install
-   ```
+- ✅ Splash Screen com pré-carregamento e loading
+- 🔐 Tela de login com autenticação simulada
+- 🧭 Navegação com transições suaves entre telas
+- 📋 **CRUD de Tarefas**: criar, listar, editar e excluir
+- 📊 Dashboard com cards de resumo (tarefas e valores)
+- ⚙️ Organização por abas com navegação inferior
+- ✨ Experiência de uso fluida com boas práticas de UX
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🧠 Conceitos Trabalhados
 
-In the output, you'll find options to open the app in a
+- Componentização com React Native
+- Gerenciamento de estado (`useState`, `useEffect`)
+- Contexto para autenticação
+- Navegação com `React Navigation` e Bottom Tabs
+- Lógica de autenticação e controle de rotas
+- Listas dinâmicas com `FlatList`
+- Estrutura modular de código
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📸 Screenshots
 
-## Get a fresh project
+> Splash, login, CRUD de tarefas e dashboard
 
-When you're ready, run:
+![App Screenshots](./assets/app.jpg)
+
+---
+
+## 🛠️ Como rodar o projeto
 
 ```bash
-npm run reset-project
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
+npm install
+npx react-native run-android # ou run-ios
 ```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
->>>>>>> 43ec4f6 (Initial commit)
