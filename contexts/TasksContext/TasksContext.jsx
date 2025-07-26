@@ -28,10 +28,12 @@ export function TasksProvider({ children }) {
     const [newTaskValue, setNewTaskValue] = useState('')
     const [editableItem, setEditableItem] = useState('')
 
+
     const addTaskInputRef = useRef(null)
     const flatListRef = useRef(null)
 
     const atualizeTasks = (task, taskValue) => {
+
         const newTask = {
             taskId: tasks.length + 1,
             taskContent: task,
@@ -60,7 +62,7 @@ export function TasksProvider({ children }) {
         if (newTask.trim() == '') {
             return showCustomToast('O campo tarefa é obrigatório.', 'error')
         }
-        if (newTaskValue.trim() == '') {
+        if (newTaskValue == '') {
             return showCustomToast('O campo valor é obrigatório.', 'error')
         }
         atualizeTasks(newTask, newTaskValue)

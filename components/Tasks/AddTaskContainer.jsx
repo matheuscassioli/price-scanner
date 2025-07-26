@@ -8,11 +8,26 @@ import { colors } from "../../theme/colors";
 
 export default function AddTaskContainer({ onClose }) {
 
-    const { newTask, atualizeAddTaskValue, addTask, addTaskInputRef, newTaskValue, setNewTaskValue } = useContext(TasksContext)
+    const { newTask, atualizeAddTaskValue, addTask, addTaskInputRef, setNewTaskValue } = useContext(TasksContext)
+
+    const [valueWithCifra, setValueWithCifra] = useState('R$ 0, 00')
+
+    const formatBRL = (value) => {
+        const numeric = Number(value) / 100;
+        return numeric.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        });
+    };
 
     const handleChangePrince = (text) => {
         const onlyNums = text.replace(/\D/g, '');
-        setNewTaskValue(onlyNums);
+        const formattedValue = formatBRL(onlyNums)
+        setValueWithCifra(formattedValue)
+        const cleanValue = parseFloat(
+            formattedValue.replace(/R\$\s?/, '').replace('.', '').replace(',', '.')
+        );
+        setNewTaskValue(cleanValue);
     };
 
     useEffect(() => {
@@ -43,7 +58,7 @@ export default function AddTaskContainer({ onClose }) {
             <Text style={[globalStyles.inputContainerLabel]}>Valor</Text>
             <TextInput
                 placeholder="R$ 0,00"
-                value={newTaskValue}
+                value={valueWithCifra}
                 keyboardType="numeric"
                 onChangeText={handleChangePrince}
                 style={globalStyles.input} />
