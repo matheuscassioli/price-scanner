@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Keyboard, Pressable, Text, TextInput, View } from "react-native"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { globalStyles } from "../../theme/globals";
@@ -8,8 +8,12 @@ import { colors } from "../../theme/colors";
 
 export default function AddTaskContainer({ onClose }) {
 
+    const { newTask, atualizeAddTaskValue, addTask, addTaskInputRef, newTaskValue, setNewTaskValue } = useContext(TasksContext)
 
-    const { text, atualizeAddTaskValue, addTask, addTaskInputRef } = useContext(TasksContext)
+    const handleChangePrince = (text) => {
+        const onlyNums = text.replace(/\D/g, '');
+        setNewTaskValue(onlyNums);
+    };
 
     useEffect(() => {
         const keyboardDidHideListener = Keyboard.addListener(
@@ -32,7 +36,17 @@ export default function AddTaskContainer({ onClose }) {
                 ref={addTaskInputRef}
                 style={globalStyles.input}
                 onChangeText={atualizeAddTaskValue}
-                value={text} />
+                value={newTask} />
+        </View>
+
+        <View style={styles.inputWrapper}>
+            <Text style={[globalStyles.inputContainerLabel]}>Valor</Text>
+            <TextInput
+                placeholder="R$ 0,00"
+                value={newTaskValue}
+                keyboardType="numeric"
+                onChangeText={handleChangePrince}
+                style={globalStyles.input} />
         </View>
 
         <Pressable style={styles.addButton} onPress={addTask}>

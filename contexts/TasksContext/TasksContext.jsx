@@ -8,29 +8,38 @@ export function TasksProvider({ children }) {
     const initialTasks = [
         {
             taskId: 1,
-            taskContent: 'comprar ovos'
+            taskContent: 'ovos',
+            value: '16,70'
         },
         {
             taskId: 2,
-            taskContent: 'comprar pães'
+            taskContent: 'pães',
+            value: '9,45'
         },
         {
             taskId: 3,
-            taskContent: 'comprar leite'
+            taskContent: 'leite',
+            value: '4,49'
         }
     ]
 
     const [tasks, setTasks] = useState(initialTasks)
-    const [text, setText] = useState('')
+    const [newTask, setNewTask] = useState('')
+    const [newTaskValue, setNewTaskValue] = useState('')
     const [editableItem, setEditableItem] = useState('')
 
     const addTaskInputRef = useRef(null)
     const flatListRef = useRef(null)
 
-    const atualizeTasks = (task) => {
-        const newTask = { taskId: tasks.length + 1, taskContent: task }
+    const atualizeTasks = (task, taskValue) => {
+        const newTask = {
+            taskId: tasks.length + 1,
+            taskContent: task,
+            value: taskValue
+        }
+
         setTasks(prevTasks => [...prevTasks, newTask]);
-        setText('')
+        setNewTask('')
         setEditableItem('')
     }
 
@@ -41,15 +50,20 @@ export function TasksProvider({ children }) {
     }
 
     const atualizeAddTaskValue = (text) => {
-        setText(text)
+        setNewTask(text)
     }
 
     const addTask = () => {
-        if (text.trim() == '') {
-            showCustomToast('O campo tarefa nao pode ser vazio.', 'error')
-            return
+        if (newTask.trim() == '') {
+            return showCustomToast('O campos não podem ser vazios.', 'error')
         }
-        atualizeTasks(text)
+        if (newTask.trim() == '') {
+            return showCustomToast('O campo tarefa é obrigatório.', 'error')
+        }
+        if (newTaskValue.trim() == '') {
+            return showCustomToast('O campo valor é obrigatório.', 'error')
+        }
+        atualizeTasks(newTask, newTaskValue)
     }
 
     const defineEditableTask = (taskId) => {
@@ -73,7 +87,8 @@ export function TasksProvider({ children }) {
             value={{
                 tasks,
                 atualizeTasks,
-                text,
+                newTask,
+                setNewTask,
                 atualizeAddTaskValue,
                 addTask,
                 flatListRef,
@@ -82,6 +97,8 @@ export function TasksProvider({ children }) {
                 editableItem,
                 defineEditableTask,
                 saveUpdateTask,
+                newTaskValue,
+                setNewTaskValue
             }}>
             {children}
         </TasksContext.Provider>

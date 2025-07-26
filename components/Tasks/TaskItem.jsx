@@ -10,7 +10,7 @@ export default function TaskItem({ item }) {
 
     const { deleteTask, editableItem, defineEditableTask, saveUpdateTask } = useContext(TasksContext)
 
-    const { taskContent, taskId } = item
+    const { taskContent, taskId, value } = item
 
     const [taskEditValue, setTaskEditValue] = useState(taskContent)
 
@@ -91,6 +91,8 @@ export default function TaskItem({ item }) {
                 {isEditableField && <TextInput ref={inputRef} style={styles.inputEditableTask} onChangeText={setTaskEditValue} value={taskEditValue} />}
 
                 {!isEditableField && <Text style={styles.taskItem}>{taskContent}</Text>}
+
+                {!isEditableField && <Text style={styles.taskItem}>{value}</Text>}
 
                 <View style={styles.actionsContainer}>
 
