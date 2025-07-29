@@ -92,7 +92,10 @@ export default function TaskItem({ item }) {
 
                 {!isEditableField && <Text style={styles.taskItem}>{taskContent}</Text>}
 
-                {!isEditableField && <Text style={styles.taskItem}>{value}</Text>}
+                {!isEditableField && <View style={styles.taskItemValues}>
+                    <Text style={[styles.taskItem, { color: "green" }]}>R$</Text>
+                    <Text style={styles.taskItem}>{value}</Text>
+                </View>}
 
                 <View style={styles.actionsContainer}>
 
@@ -119,13 +122,20 @@ const styles = StyleSheet.create({
         elevation: 3,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
     },
     taskItem: {
         color: colors.white,
         fontSize: 16,
-        flex: 1,
         paddingRight: 10,
+    },
+    taskItemValues: {
+        width: 140,
+        display: 'flex',
+        flexDirection: 'row',
+        fontSize: 16,
+        justifyContent: 'flex-end',
+        alignItems: 'center', 
     },
     inputEditableTask: {
         borderBottomWidth: 1,
