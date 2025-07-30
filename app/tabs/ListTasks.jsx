@@ -2,25 +2,16 @@ import { useContext, useRef, useState } from "react"
 import { View, FlatList, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform, Animated } from "react-native"
 import { colors } from "../../theme/colors.js";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TasksContext, TasksProvider } from "../../contexts/TasksContext/TasksContext.jsx";
+import { TasksContext } from "../../contexts/TasksContext/TasksContext.jsx";
 import TaskItem from "../../components/Tasks/TaskItem.jsx";
 import ExitButton from "../../components/Tasks/ExitButton.jsx";
 import AddTaskContainer from "../../components/Tasks/AddTaskContainer.jsx";
-
-
-export default function ListTasks() {
-    return (
-        <TasksProvider>
-            <ListTasksContent />
-        </TasksProvider>
-    );
-}
 
 const EmptyListComponent = () => (
     <Text style={{ color: colors.white }}>Não há tarefas :(</Text>
 );
 
-const ListTasksContent = () => {
+export default function ListTasks() {
 
     const [isInputVisible, setIsInputVisible] = useState(false);
     const { tasks, flatListRef, addTaskInputRef } = useContext(TasksContext)

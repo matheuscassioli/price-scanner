@@ -1,45 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text } from "react-native";
 import { colors } from "../../theme/colors";
 import { StyleSheet } from "react-native";
 import AnimatedNumbers from 'react-native-animated-numbers';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TasksContext } from '../../contexts/TasksContext/TasksContext';
+
 
 export default function DashBoard() {
+    const { tasks } = useContext(TasksContext)
 
     const [allValuesAnimated, setAllValuesAnimated] = useState({
-        totalValue: '',
-        totalTasks: '',
+        totalValue: '0',
+        totalTasks: '0',
     });
 
     useEffect(() => {
-        loadTasks();
-    }, []);
+        loadTasks()
+    }, [tasks]);
 
-    const loadTasks = async () => {
-        try {
-            const captureTasksStorage = await AsyncStorage.getItem('@listTaks');
+    const loadTasks = () => {
+        const sumTasksValues = tasks.reduce((acc, item) => {
+            const valueStr = String(item?.value);
+            const val = Number(valueStr.replace(',', '.'));
+            if (isNaN(val)) return acc;
+            return acc + val;
+        }, 0);
 
-            if (captureTasksStorage) {
-                const Tasks = JSON.parse(captureTasksStorage);
-
-                const sumTasksValues = Tasks.reduce((acc, item) => {
-                    const val = Number(item.value.replace(',', '.'));
-                    if (isNaN(val)) return acc;
-                    return acc + val;
-                }, 0);
-
-                setTimeout(() => {
-                    setAllValuesAnimated({
-                        totalValue: Number(sumTasksValues.toFixed(2)),
-                        totalTasks: Tasks.length,
-                    });
-                }, 300);
-            }
-        } catch (e) {
-            console.error('Erro ao carregar tarefas:', e);
-        }
-    };
+        setTimeout(() => {
+            setAllValuesAnimated({
+                totalValue: Number(sumTasksValues.toFixed(2)),
+                totalTasks: tasks.length,
+            });
+        }, 300);
+    }
 
     return <View style={styles.dashBoardContainer}>
         <View style={styles.row}>

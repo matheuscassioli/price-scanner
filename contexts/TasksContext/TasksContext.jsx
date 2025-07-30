@@ -1,6 +1,5 @@
-import { createContext, useEffect, useRef, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
 import { showCustomToast } from '../../helpers/helpers';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const TasksContext = createContext();
 
@@ -85,20 +84,6 @@ export function TasksProvider({ children }) {
         defineEditableTask('')
         showCustomToast('Tarefa editada com sucesso.', 'success')
     }
-
-
-    const saveTaskStorage = async (key, value) => {
-        try {
-            const jsonValue = JSON.stringify(value);
-            await AsyncStorage.setItem(key, jsonValue);
-        } catch (e) {
-            console.error('Erro ao salvar no AsyncStorage:', e);
-        }
-    };
-
-    useEffect(() => {
-        saveTaskStorage('@listTaks', tasks);
-    }, [tasks])
 
     return (
         <TasksContext.Provider
