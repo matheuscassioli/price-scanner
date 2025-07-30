@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { colors } from "../../theme/colors";
 import { StyleSheet } from "react-native";
 import AnimatedNumbers from 'react-native-animated-numbers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DashBoard() {
 
@@ -12,16 +13,35 @@ export default function DashBoard() {
     });
 
     useEffect(() => {
-        setTimeout(() => {
-            setAllValuesAnimated({
-                totalValue: 12000,
-                totalTasks: 32,
-            });
-        }, 300);
+        loadTasks();
     }, []);
 
-    return <View style={styles.dashBoardContainer}>
+    const loadTasks = async () => {
+        try {
+            const captureTasksStorage = await AsyncStorage.getItem('@listTaks');
 
+            if (captureTasksStorage) {
+                const Tasks = JSON.parse(captureTasksStorage);
+
+                const sumTasksValues = Tasks.reduce((acc, item) => {
+                    const val = Number(item.value.replace(',', '.'));
+                    if (isNaN(val)) return acc;
+                    return acc + val;
+                }, 0);
+
+                setTimeout(() => {
+                    setAllValuesAnimated({
+                        totalValue: Number(sumTasksValues.toFixed(2)),
+                        totalTasks: Tasks.length,
+                    });
+                }, 300);
+            }
+        } catch (e) {
+            console.error('Erro ao carregar tarefas:', e);
+        }
+    };
+
+    return <View style={styles.dashBoardContainer}>
         <View style={styles.row}>
             <View style={styles.dashBoardItem}>
                 <Text style={styles.dashBoardItemTitle}>Tarefas</Text>
@@ -43,6 +63,7 @@ export default function DashBoard() {
                 <Text style={styles.dashBoardItemTitle}>Valor total</Text>
                 <View style={styles.dashBoardItemNumber}>
                     <AnimatedNumbers
+                        precision={2}
                         animateToNumber={allValuesAnimated.totalValue}
                         fontStyle={{
                             fontSize: 16,
