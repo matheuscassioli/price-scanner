@@ -8,9 +8,7 @@ import { colors } from "../../theme/colors";
 
 export default function AddTaskContainer({ onClose }) {
 
-    const { newTask, atualizeAddTaskValue, addTask, addTaskInputRef, setNewTaskValue } = useContext(TasksContext)
-
-    const [valueWithCifra, setValueWithCifra] = useState('R$ 0, 00')
+    const { newTask, atualizeAddTaskValue, addTask, addTaskInputRef, setNewTaskValue, valueWithCifra, setValueWithCifra } = useContext(TasksContext)
 
     const formatBRL = (value) => {
         const numeric = Number(value) / 100;
@@ -44,26 +42,25 @@ export default function AddTaskContainer({ onClose }) {
 
     return <View style={styles.addTaskContainer}>
 
-        <View style={styles.inputWrapper}>
-            <Text style={[globalStyles.inputContainerLabel]}>Adicione uma tarefa</Text>
+        <View style={[styles.inputWrapper, { flex: 4 }]}>
             <TextInput
                 placeholder="Digite a tarefa"
                 ref={addTaskInputRef}
                 style={globalStyles.input}
                 onChangeText={atualizeAddTaskValue}
-                value={newTask} />
+                value={newTask}
+            />
         </View>
 
-        <View style={styles.inputWrapper}>
-            <Text style={[globalStyles.inputContainerLabel]}>Valor</Text>
+        <View style={[styles.inputWrapper, { flex: 3 }]}>
             <TextInput
                 placeholder="R$ 0,00"
                 value={valueWithCifra}
                 keyboardType="numeric"
                 onChangeText={handleChangePrince}
-                style={globalStyles.input} />
+                style={globalStyles.input}
+            />
         </View>
-
         <Pressable style={styles.addButton} onPress={addTask}>
             <Icon name="plus" size={24} color="white" />
         </Pressable>
@@ -75,18 +72,14 @@ const styles = StyleSheet.create({
     addTaskContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
+        justifyContent: 'space-around',
+        padding: 4,
         marginBottom: 60,
     },
     inputWrapper: {
-        flex: 1,
-        marginRight: 0,
         borderRadius: 8,
         padding: 10,
         shadowOffset: { width: 0, height: 1 },
-        marginLeft: -20,
-
     },
     addButton: {
         backgroundColor: colors.primary,
@@ -94,7 +87,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 1
     },
 
 });

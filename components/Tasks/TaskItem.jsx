@@ -111,31 +111,29 @@ export default function TaskItem({ item }) {
 
 const styles = StyleSheet.create({
     taskItemContainer: {
+        height: 60, // 🔧 altura fixa
         backgroundColor: '#2c2c2e',
         borderRadius: 4,
-        padding: 12,
+        paddingHorizontal: 8,
         marginBottom: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
         elevation: 3,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between'
     },
     taskItem: {
         color: colors.white,
-        fontSize: 16,
+        fontSize: 14,
+        flexShrink: 1,
+        width: 180,
         paddingRight: 10,
+        overflow: 'hidden',
     },
     taskItemValues: {
-        width: 140,
-        display: 'flex',
+        width: 180,
         flexDirection: 'row',
-        fontSize: 16,
         justifyContent: 'flex-end',
-        alignItems: 'center', 
+        alignItems: 'center',
     },
     inputEditableTask: {
         borderBottomWidth: 1,
@@ -150,10 +148,10 @@ const styles = StyleSheet.create({
     actionsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 8,
+        gap: 4,
     },
     iconButton: {
-        padding: 8,
+        padding: 6,
         borderRadius: 6,
         backgroundColor: '#3a3a3c',
         justifyContent: 'center',

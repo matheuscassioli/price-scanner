@@ -27,13 +27,12 @@ export function TasksProvider({ children }) {
     const [newTask, setNewTask] = useState('')
     const [newTaskValue, setNewTaskValue] = useState('')
     const [editableItem, setEditableItem] = useState('')
-
+    const [valueWithCifra, setValueWithCifra] = useState('R$ 0,00')
 
     const addTaskInputRef = useRef(null)
     const flatListRef = useRef(null)
 
     const atualizeTasks = (task, taskValue) => {
-
         const newTask = {
             taskId: tasks.length + 1,
             taskContent: task,
@@ -43,6 +42,8 @@ export function TasksProvider({ children }) {
         setTasks(prevTasks => [...prevTasks, newTask]);
         setNewTask('')
         setEditableItem('')
+        setValueWithCifra('R$ 0,00')
+        setNewTaskValue('')
     }
 
     const deleteTask = (taskId) => {
@@ -100,7 +101,9 @@ export function TasksProvider({ children }) {
                 defineEditableTask,
                 saveUpdateTask,
                 newTaskValue,
-                setNewTaskValue
+                setNewTaskValue,
+                valueWithCifra,
+                setValueWithCifra
             }}>
             {children}
         </TasksContext.Provider>
