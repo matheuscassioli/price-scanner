@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text } from "react-native";
 import { colors } from "../../theme/colors";
 import { StyleSheet } from "react-native";
-import AnimatedNumbers from 'react-native-animated-numbers';
 import { TasksContext } from '../../contexts/TasksContext/TasksContext';
-
+import CustomAnimatedNumbers from '../../components/CustomAnimatedNumbers/CustomAnimatedNumbers'
+import AnimatedNumbers from 'react-native-animated-numbers';
 
 export default function DashBoard() {
     const { tasks } = useContext(TasksContext)
@@ -55,24 +55,13 @@ export default function DashBoard() {
             <View style={styles.dashBoardItem}>
                 <Text style={styles.dashBoardItemTitle}>Valor total</Text>
                 <View style={styles.dashBoardItemNumber}>
-                    <AnimatedNumbers
-                        precision={2}
-                        animateToNumber={allValuesAnimated.totalValue}
-                        fontStyle={{
+                    <CustomAnimatedNumbers
+                        value={allValuesAnimated.totalValue}
+                        style={{
                             fontSize: 16,
                             fontWeight: 'bold',
                             color: colors.white,
                             textAlign: 'right',
-                        }}
-                        animationDuration={1500}
-                        formatValue={(n) => {
-                            if (isNaN(n)) return 'R$ 0,00';
-                            return new Intl.NumberFormat('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL',
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            }).format(n);
                         }}
                     />
                 </View>
