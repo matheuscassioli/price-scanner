@@ -5,8 +5,44 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getButtonStyle } from "../../helpers/helpers";
 import Animated, { FadeInDown, FadeOut } from 'react-native-reanimated';
 import { TasksContext } from "../../contexts/TasksContext/TasksContext";
+import { Directions, FlingGestureHandler, State } from "react-native-gesture-handler";
+import { Animated as RNAnimated } from "react-native";
 
 export default function TaskItem({ item }) {
+
+    const swipe = useRef(new RNAnimated.Value(0)).current;
+    const bgColor = useRef(new RNAnimated.Value(0)).current;
+
+    const animatedStyle = {
+        transform: [{ translateX: swipe }],
+        backgroundColor: bgColor.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['#2c2c2e', '#ff4d4d']
+        }),
+    };
+
+    const handleFling = (e) => {
+        if (e.nativeEvent.state == State.ACTIVE) {
+            RNAnimated.sequence([
+                RNAnimated.timing(bgColor, {
+                    toValue: 1,
+                    duration: 150,
+                    useNativeDriver: false,
+                }),
+                RNAnimated.timing(bgColor, {
+                    toValue: 0,
+                    duration: 150,
+                    useNativeDriver: false,
+                }),
+                RNAnimated.timing(swipe, {
+                    toValue: -500,
+                    duration: 400,
+                    useNativeDriver: true,
+                }),
+            ]).start(() => deleteTask(taskId));
+        }
+    };
+
 
     const { deleteTask, editableItem, defineEditableTask, saveUpdateTask } = useContext(TasksContext)
 
@@ -86,32 +122,35 @@ export default function TaskItem({ item }) {
             entering={FadeInDown.duration(300)}
             exiting={FadeOut.duration(300)}
         >
-            <View style={styles.taskItemContainer}>
+            <FlingGestureHandler direction={Directions.LEFT} onHandlerStateChange={(e) => handleFling(e)}>
 
-                {isEditableField && <TextInput
-                    ref={inputRef}
-                    style={styles.inputEditableTask}
-                    onChangeText={setTaskEditValue}
-                    value={taskEditValue} />}
+                <RNAnimated.View style={[styles.taskItemContainer, animatedStyle]}>
 
-                {!isEditableField && <Text
-                    style={styles.taskItem}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"> {taskContent}</Text>}
+                    {isEditableField && <TextInput
+                        ref={inputRef}
+                        style={styles.inputEditableTask}
+                        onChangeText={setTaskEditValue}
+                        value={taskEditValue} />}
 
-                {!isEditableField && <View style={styles.taskItemValues}>
-                    <Text style={{ color: "green" }}>R$</Text>
-                    <Text style={{ color: "white", marginLeft: '5' }}>{value}</Text>
-                </View>}
+                    {!isEditableField && <Text
+                        style={styles.taskItem}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"> {taskContent}</Text>}
 
-                <View style={styles.actionsContainer}>
+                    {!isEditableField && <View style={styles.taskItemValues}>
+                        <Text style={{ color: "green" }}>R$</Text>
+                        <Text style={{ color: "white", marginLeft: '5' }}>{value}</Text>
+                    </View>}
 
-                    {isEditableField ? <SaveButton /> : <EditButton />}
+                    <View style={styles.actionsContainer}>
 
-                    {isEditableField ? <UndoButton /> : <DeleteButton />}
+                        {isEditableField ? <SaveButton /> : <EditButton />}
 
-                </View>
-            </View >
+                        {isEditableField ? <UndoButton /> : <DeleteButton />}
+
+                    </View>
+                </RNAnimated.View >
+            </FlingGestureHandler >
         </Animated.View >
     );
 };

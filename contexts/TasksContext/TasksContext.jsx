@@ -20,8 +20,94 @@ export function TasksProvider({ children }) {
             taskId: 3,
             taskContent: 'leite',
             value: '4,49'
+        },
+        {
+            taskId: 4,
+            taskContent: 'queijo',
+            value: '12,90'
+        },
+        {
+            taskId: 5,
+            taskContent: 'arroz',
+            value: '25,30'
+        },
+        {
+            taskId: 6,
+            taskContent: 'feijão',
+            value: '8,75'
+        },
+        {
+            taskId: 7,
+            taskContent: 'açúcar',
+            value: '5,20'
+        },
+        {
+            taskId: 8,
+            taskContent: 'café',
+            value: '17,50'
+        },
+        {
+            taskId: 9,
+            taskContent: 'manteiga',
+            value: '10,80'
+        },
+        {
+            taskId: 10,
+            taskContent: 'macarrão',
+            value: '6,40'
+        },
+        {
+            taskId: 11,
+            taskContent: 'óleo',
+            value: '7,10'
+        },
+        {
+            taskId: 12,
+            taskContent: 'frango',
+            value: '22,00'
+        },
+        {
+            taskId: 13,
+            taskContent: 'carne bovina',
+            value: '48,90'
+        },
+        {
+            taskId: 14,
+            taskContent: 'banana',
+            value: '6,20'
+        },
+        {
+            taskId: 15,
+            taskContent: 'maçã',
+            value: '8,10'
+        },
+        {
+            taskId: 16,
+            taskContent: 'tomate',
+            value: '9,90'
+        },
+        {
+            taskId: 17,
+            taskContent: 'batata',
+            value: '12,40'
+        },
+        {
+            taskId: 18,
+            taskContent: 'cenoura',
+            value: '7,30'
+        },
+        {
+            taskId: 19,
+            taskContent: 'alface',
+            value: '3,99'
+        },
+        {
+            taskId: 20,
+            taskContent: 'água mineral',
+            value: '2,50'
         }
-    ]
+    ];
+
 
     const [tasks, setTasks] = useState(initialTasks)
     const [newTask, setNewTask] = useState('')
@@ -48,8 +134,7 @@ export function TasksProvider({ children }) {
 
     const deleteTask = (taskId) => {
         const newTasks = tasks.filter(key => key.taskId !== taskId)
-        setTasks(newTasks)
-        showCustomToast('Tarefa deletada com sucesso.', 'success')
+        setTasks(newTasks) 
     }
 
     const atualizeAddTaskValue = (text) => {

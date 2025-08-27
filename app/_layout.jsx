@@ -8,6 +8,7 @@ import SplashPreLoading from "../components/SplashPreLoading";
 import { Asset } from 'expo-asset';
 import { colors } from "../theme/colors.js";
 import { Slot } from 'expo-router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
   const [isSplashReady, setIsSplashReady] = useState(false);
@@ -35,24 +36,26 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <View style={styles.container}  >
-        <AuthProvider>
-          <SafeAreaView style={styles.safeArea}>
+    <GestureHandlerRootView>
+      <SafeAreaProvider>
+        <View style={styles.container}  >
+          <AuthProvider>
+            <SafeAreaView style={styles.safeArea}>
 
-            <Slot />
+              <Slot />
 
-            <Toast position="top" topOffset={200} />
+              <Toast position="top" topOffset={200} />
 
-            {showSplash && (
-              <View style={styles.splashOverlay}>
-                <SplashPreLoading onFinish={handleSplashFinish} />
-              </View>
-            )}
-          </SafeAreaView>
-        </AuthProvider>
-      </View>
-    </SafeAreaProvider>
+              {showSplash && (
+                <View style={styles.splashOverlay}>
+                  <SplashPreLoading onFinish={handleSplashFinish} />
+                </View>
+              )}
+            </SafeAreaView>
+          </AuthProvider>
+        </View>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
