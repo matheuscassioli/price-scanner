@@ -23,25 +23,29 @@ export default function TaskItem({ item }) {
 
     const handleFling = (e) => {
         if (e.nativeEvent.state == State.ACTIVE) {
-            RNAnimated.sequence([
-                RNAnimated.timing(bgColor, {
-                    toValue: 1,
-                    duration: 150,
-                    useNativeDriver: false,
-                }),
-                RNAnimated.timing(bgColor, {
-                    toValue: 0,
-                    duration: 150,
-                    useNativeDriver: false,
-                }),
+            RNAnimated.parallel([
+                RNAnimated.sequence([
+                    RNAnimated.timing(bgColor, {
+                        toValue: 1,
+                        duration: 150,
+                        useNativeDriver: false,
+                    }),
+                    RNAnimated.timing(bgColor, {
+                        toValue: 0,
+                        duration: 150,
+                        useNativeDriver: false,
+                    }),
+                ]),
+
                 RNAnimated.timing(swipe, {
                     toValue: -500,
                     duration: 400,
-                    useNativeDriver: true,
+                    useNativeDriver: false,
                 }),
             ]).start(() => deleteTask(taskId));
         }
     };
+
 
 
     const { deleteTask, editableItem, defineEditableTask, saveUpdateTask } = useContext(TasksContext)

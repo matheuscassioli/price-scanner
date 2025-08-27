@@ -3,7 +3,7 @@
     "name": "list-native-udemy",
     "slug": "list-native-udemy",
     "version": "1.0.0",
-    "orientation": "portrait", 
+    "orientation": "portrait",
     "scheme": "listnativeudemy",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -11,22 +11,23 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": { 
-        "backgroundColor": "#ffffff"
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff",
+        "foregroundImage": "./assets/CassiDEV.png"
       },
       "edgeToEdgeEnabled": true
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/CassiDEV.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/CassiDEV.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
