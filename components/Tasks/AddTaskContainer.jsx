@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react"
-import { Keyboard, Pressable, Text, TextInput, View } from "react-native"
+import { useContext, useEffect } from "react"
+import { Keyboard, Pressable, TextInput, View } from "react-native"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { globalStyles } from "../../theme/globals";
 import { StyleSheet } from "react-native";
@@ -40,9 +40,9 @@ export default function AddTaskContainer({ onClose }) {
         };
     }, [])
 
-    return <View style={styles.addTaskContainer}>
+    return <View style={styles.addTaskContainer} >
 
-        <View style={[styles.inputWrapper, { flex: 4 }]}>
+        <View style={[styles.inputWrapper]}>
             <TextInput
                 placeholder="Digite a tarefa"
                 ref={addTaskInputRef}
@@ -52,41 +52,48 @@ export default function AddTaskContainer({ onClose }) {
             />
         </View>
 
-        <View style={[styles.inputWrapper, { flex: 3 },]}>
+        <View style={{
+            flexDirection: 'row',
+            width: '100%',
+            paddingVertical: 0,
+            paddingHorizontal: 10
+        }}>
             <TextInput
                 placeholder="R$ 0,00"
                 value={valueWithCifra}
                 keyboardType="numeric"
                 onChangeText={handleChangePrince}
-                style={[globalStyles.input, { margin: 0, marginRight: 10 }]} />
+                style={[globalStyles.input, { flex: 1, margin: 0 }]}
+            />
+            <Pressable style={[styles.addButton]} onPress={addTask}>
+                <Icon name="plus" size={24} color="white" />
+            </Pressable>
         </View>
-        <Pressable style={styles.addButton} onPress={addTask}>
-            <Icon name="plus" size={24} color="white" />
-        </Pressable>
+
 
     </View>
 }
 
 const styles = StyleSheet.create({
     addTaskContainer: {
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginBottom: 60, 
+        marginBottom: 60,
     },
     inputWrapper: {
         borderRadius: 8,
         padding: 0,
         shadowOffset: { width: 0, height: 1 },
+        width: '100%'
     },
     addButton: {
         backgroundColor: colors.primary,
         padding: 10,
         borderRadius: 4,
-        justifyContent: 'center',
+        marginLeft: 10,
+        display: 'flex',
         alignItems: 'center',
-        marginTop: 1, 
-        marginRight:10, 
+        justifyContent: 'center'
     },
 
 });

@@ -5,12 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const TasksContext = createContext();
 
 export function TasksProvider({ children }) {
- 
+
     const [tasks, setTasks] = useState([])
     const [newTask, setNewTask] = useState('')
     const [newTaskValue, setNewTaskValue] = useState('')
     const [editableItem, setEditableItem] = useState('')
-    const [valueWithCifra, setValueWithCifra] = useState('R$ 0,00')
+    const [valueWithCifra, setValueWithCifra] = useState('')
 
     const addTaskInputRef = useRef(null)
     const flatListRef = useRef(null)
@@ -51,7 +51,7 @@ export function TasksProvider({ children }) {
         setTasks(prevTasks => [...prevTasks, newTask]);
         setNewTask('')
         setEditableItem('')
-        setValueWithCifra('R$ 0,00')
+        setValueWithCifra('')
         setNewTaskValue('')
     }
 
@@ -90,7 +90,6 @@ export function TasksProvider({ children }) {
         })
         setTasks(updateTasks)
         defineEditableTask('')
-        showCustomToast('Tarefa editada com sucesso.', 'success')
     }
 
     return (

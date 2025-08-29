@@ -64,6 +64,7 @@ export default function Login() {
                             value={authUser['password']}
                             onSubmitEditing={() => handleUserSubmit(false)}
                             ref={secondInputRef}
+                            keyboardType="numeric"
                             onChangeText={(e) => onChangeUserLogin(e, 'password')}
                             placeholder="Digite sua senha" />
 

@@ -44,7 +44,7 @@ export default function RootLayout() {
 
               <Slot />
 
-              <Toast position="top" topOffset={200} />
+              <Toast position="bottom" topOffset={200} />
 
               {showSplash && (
                 <View style={styles.splashOverlay}>

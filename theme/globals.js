@@ -13,15 +13,16 @@ export const globalStyles = StyleSheet.create({
         paddingRight: 10,
     },
     input: {
-        height: 40,
+        height: 50,
         margin: 12,
         borderWidth: 1,
         borderColor: colors.white,
         padding: 10,
-        color: colors.white, 
+        color: colors.white,
         borderRadius: 4
     },
     button: {
+        height: 50,
         backgroundColor: colors.primary,
         paddingVertical: 12,
         paddingHorizontal: 24,
