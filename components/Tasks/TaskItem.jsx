@@ -46,8 +46,6 @@ export default function TaskItem({ item }) {
         }
     };
 
-
-
     const { deleteTask, editableItem, defineEditableTask, saveUpdateTask } = useContext(TasksContext)
 
     const { taskContent, taskId, value } = item
