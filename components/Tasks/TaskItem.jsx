@@ -3,48 +3,13 @@ import { colors } from "../../theme/colors";
 import { useContext, useEffect, useRef, useState } from "react";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getButtonStyle } from "../../helpers/helpers";
-import Animated, { FadeInDown, FadeOut } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeOut, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import { TasksContext } from "../../contexts/TasksContext/TasksContext";
-import { Directions, FlingGestureHandler, State } from "react-native-gesture-handler";
-import { Animated as RNAnimated } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 export default function TaskItem({ item }) {
-
-    const swipe = useRef(new RNAnimated.Value(0)).current;
-    const bgColor = useRef(new RNAnimated.Value(0)).current;
-
-    const animatedStyle = {
-        transform: [{ translateX: swipe }],
-        backgroundColor: bgColor.interpolate({
-            inputRange: [0, 1],
-            outputRange: ['#2c2c2e', '#ff4d4d']
-        }),
-    };
-
-    const handleFling = (e) => {
-        if (e.nativeEvent.state == State.ACTIVE) {
-            RNAnimated.parallel([
-                RNAnimated.sequence([
-                    RNAnimated.timing(bgColor, {
-                        toValue: 1,
-                        duration: 150,
-                        useNativeDriver: false,
-                    }),
-                    RNAnimated.timing(bgColor, {
-                        toValue: 0,
-                        duration: 150,
-                        useNativeDriver: false,
-                    }),
-                ]),
-
-                RNAnimated.timing(swipe, {
-                    toValue: -500,
-                    duration: 400,
-                    useNativeDriver: false,
-                }),
-            ]).start(() => deleteTask(taskId));
-        }
-    };
+    const swipe = useSharedValue(0);
+    const bg = useSharedValue(0);
 
     const { deleteTask, editableItem, defineEditableTask, saveUpdateTask } = useContext(TasksContext)
 
@@ -55,6 +20,25 @@ export default function TaskItem({ item }) {
     const isEditableField = editableItem == taskId
 
     const inputRef = useRef(null)
+
+    const panGesture = Gesture.Pan()
+        .onUpdate(e => {
+            swipe.value = e.translationX;
+        })
+        .onEnd(() => {
+            if (swipe.value < -150) {
+                bg.value = withTiming(1, { duration: 150 });
+                swipe.value = withTiming(-500, { duration: 300 }, () => {
+                    runOnJS(deleteTask)(taskId);
+                });
+            } else {
+                swipe.value = withSpring(0);
+            }
+        });
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{ translateX: swipe.value }],
+        backgroundColor: interpolateColor(bg.value, [0, 1], ['#2c2c2e', '#ff4d4d'])
+    }));
 
     useEffect(() => {
         if (isEditableField && inputRef.current) {
@@ -124,9 +108,9 @@ export default function TaskItem({ item }) {
             entering={FadeInDown.duration(300)}
             exiting={FadeOut.duration(300)}
         >
-            <FlingGestureHandler direction={Directions.LEFT} onHandlerStateChange={(e) => handleFling(e)}>
+            <GestureDetector gesture={panGesture}>
 
-                <RNAnimated.View style={[styles.taskItemContainer, animatedStyle]}>
+                <Animated.View style={[styles.taskItemContainer, animatedStyle]}>
 
                     {isEditableField && <TextInput
                         ref={inputRef}
@@ -151,8 +135,8 @@ export default function TaskItem({ item }) {
                         {isEditableField ? <UndoButton /> : <DeleteButton />}
 
                     </View>
-                </RNAnimated.View >
-            </FlingGestureHandler >
+                </Animated.View >
+            </GestureDetector>
         </Animated.View >
     );
 };

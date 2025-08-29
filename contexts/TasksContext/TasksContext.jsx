@@ -5,8 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const TasksContext = createContext();
 
 export function TasksProvider({ children }) {
-
-
+ 
     const [tasks, setTasks] = useState([])
     const [newTask, setNewTask] = useState('')
     const [newTaskValue, setNewTaskValue] = useState('')
