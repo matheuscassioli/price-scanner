@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { View, FlatList, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform, Animated } from "react-native"
 import { colors } from "../../theme/colors.js";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,10 +6,7 @@ import { TasksContext } from "../../contexts/TasksContext/TasksContext.jsx";
 import TaskItem from "../../components/Tasks/TaskItem.jsx";
 import ExitButton from "../../components/Tasks/ExitButton.jsx";
 import AddTaskContainer from "../../components/Tasks/AddTaskContainer.jsx";
-
-const EmptyListComponent = () => (
-    <Text style={{ color: colors.white }}>Não há tarefas :(</Text>
-);
+import WarningEmptyList from '../../components/WarningEmptyList/WarningEmptyList.jsx'
 
 export default function ListTasks() {
 
@@ -56,10 +53,11 @@ export default function ListTasks() {
             <FlatList
                 keyboardShouldPersistTaps="handled"
                 ref={flatListRef}
-                contentContainerStyle={{ paddingBottom: 100, paddingTop: 20 }}
                 style={styles.listTaskContainer}
                 data={tasks}
-                ListEmptyComponent={<EmptyListComponent />}
+                contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 16, paddingTop: 20, paddingBottom: 100 }}
+
+                ListEmptyComponent={<WarningEmptyList />}
                 renderItem={({ item }) => <TaskItem item={item} />}
                 onContentSizeChange={() => flatListRef?.current?.scrollToEnd({ animated: true })}
                 keyExtractor={(item) => item.taskId.toString()} />
