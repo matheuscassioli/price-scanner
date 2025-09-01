@@ -7,7 +7,7 @@ import TaskItem from "../../components/Tasks/TaskItem.jsx";
 import ExitButton from "../../components/Tasks/ExitButton.jsx";
 import AddTaskContainer from "../../components/Tasks/AddTaskContainer.jsx";
 import WarningEmptyList from '../../components/WarningEmptyList/WarningEmptyList.jsx'
-import { Text } from "react-native";
+import FlatListTopActions from "../../components/FlatListTopActions/FlatListTopActions.jsx";
 
 export default function ListTasks() {
 
@@ -52,14 +52,8 @@ export default function ListTasks() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
 
         <View style={styles.viewTasks}>
-            <Text style={{
-                color: 'white',
-                paddingHorizontal: 40,
-            }}>SOMA DOS ITENS: &nbsp;&nbsp;&nbsp;
-                <Text style={{ color: 'green', fontWeight:700, fontSize:16 }}>
-                    R$  {Number(sumTasksValues.toFixed(2))}
-                </Text>
-            </Text>
+
+            <FlatListTopActions />
 
             <FlatList
                 keyboardShouldPersistTaps="handled"
@@ -103,7 +97,8 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         paddingTop: 0,
-        backgroundColor: colors.background
+        backgroundColor: colors.background,
+        maxHeight: '80%'
     },
     viewTasks: {
         flex: 1,

@@ -53,6 +53,9 @@ export function TasksProvider({ children }) {
         setEditableItem('')
         setValueWithCifra('')
         setNewTaskValue('')
+        if (addTaskInputRef.current) {
+            addTaskInputRef.current.focus()
+        }
     }
 
     const deleteTask = (taskId) => {

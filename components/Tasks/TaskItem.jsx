@@ -124,8 +124,14 @@ export default function TaskItem({ item }) {
                         ellipsizeMode="tail"> {taskContent}</Text>}
 
                     {!isEditableField && <View style={styles.taskItemValues}>
-                        <Text style={{ color: "green" }}>R$</Text>
-                        <Text style={{ color: "white", marginLeft: '5' }}>{value}</Text>
+                        <Text
+                            style={{ color: "green" }}>R$</Text>
+                        <Text
+                            style={{
+                                color: "white",
+                                marginLeft: '5'
+                            }}>{value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        </Text>
                     </View>}
 
                     <View style={styles.actionsContainer}>
