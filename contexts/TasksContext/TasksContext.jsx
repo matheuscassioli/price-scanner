@@ -92,6 +92,13 @@ export function TasksProvider({ children }) {
         defineEditableTask('')
     }
 
+    const sumTasksValues = tasks.reduce((acc, item) => {
+        const valueStr = String(item?.value);
+        const val = Number(valueStr.replace(',', '.'));
+        if (isNaN(val)) return acc;
+        return acc + val;
+    }, 0);
+
     return (
         <TasksContext.Provider
             value={{
@@ -110,7 +117,8 @@ export function TasksProvider({ children }) {
                 newTaskValue,
                 setNewTaskValue,
                 valueWithCifra,
-                setValueWithCifra
+                setValueWithCifra,
+                sumTasksValues
             }}>
             {children}
         </TasksContext.Provider>

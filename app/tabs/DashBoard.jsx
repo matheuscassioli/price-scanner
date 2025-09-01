@@ -7,7 +7,7 @@ import CustomAnimatedNumbers from '../../components/CustomAnimatedNumbers/Custom
 import AnimatedNumbers from 'react-native-animated-numbers';
 
 export default function DashBoard() {
-    const { tasks } = useContext(TasksContext)
+    const { tasks, sumTasksValues } = useContext(TasksContext)
 
     const [allValuesAnimated, setAllValuesAnimated] = useState({
         totalValue: '0',
@@ -19,12 +19,6 @@ export default function DashBoard() {
     }, [tasks]);
 
     const loadTasks = () => {
-        const sumTasksValues = tasks.reduce((acc, item) => {
-            const valueStr = String(item?.value);
-            const val = Number(valueStr.replace(',', '.'));
-            if (isNaN(val)) return acc;
-            return acc + val;
-        }, 0);
 
         setTimeout(() => {
             setAllValuesAnimated({

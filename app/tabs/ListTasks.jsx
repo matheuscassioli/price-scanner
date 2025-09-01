@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react"
-import { View, FlatList, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform, Animated } from "react-native"
+import { useContext, useRef, useState } from "react"
+import { View, FlatList, StyleSheet, Pressable, KeyboardAvoidingView, Platform, Animated } from "react-native"
 import { colors } from "../../theme/colors.js";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TasksContext } from "../../contexts/TasksContext/TasksContext.jsx";
@@ -7,11 +7,12 @@ import TaskItem from "../../components/Tasks/TaskItem.jsx";
 import ExitButton from "../../components/Tasks/ExitButton.jsx";
 import AddTaskContainer from "../../components/Tasks/AddTaskContainer.jsx";
 import WarningEmptyList from '../../components/WarningEmptyList/WarningEmptyList.jsx'
+import { Text } from "react-native";
 
 export default function ListTasks() {
 
     const [isInputVisible, setIsInputVisible] = useState(false);
-    const { tasks, flatListRef, addTaskInputRef } = useContext(TasksContext)
+    const { tasks, flatListRef, addTaskInputRef, sumTasksValues } = useContext(TasksContext)
 
     const animation = useRef(new Animated.Value(0))?.current;
 
@@ -29,6 +30,7 @@ export default function ListTasks() {
             }
         }, 250)
     };
+
 
     const closeAddTask = () => {
         Animated.timing(animation, {
@@ -50,6 +52,15 @@ export default function ListTasks() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
 
         <View style={styles.viewTasks}>
+            <Text style={{
+                color: 'white',
+                paddingHorizontal: 40,
+            }}>SOMA DOS ITENS: &nbsp;&nbsp;&nbsp;
+                <Text style={{ color: 'green', fontWeight:700, fontSize:16 }}>
+                    R$  {Number(sumTasksValues.toFixed(2))}
+                </Text>
+            </Text>
+
             <FlatList
                 keyboardShouldPersistTaps="handled"
                 ref={flatListRef}
@@ -91,7 +102,7 @@ const styles = StyleSheet.create({
     listTaskContainer: {
         flex: 1,
         paddingHorizontal: 16,
-        paddingTop: 8,
+        paddingTop: 0,
         backgroundColor: colors.background
     },
     viewTasks: {
