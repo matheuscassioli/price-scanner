@@ -44,7 +44,7 @@ export default function AddTaskContainer({ onClose }) {
 
         <View style={[styles.inputWrapper]}>
             <TextInput
-                placeholder="Digite a tarefa"
+                placeholder="Digite o item"
                 ref={addTaskInputRef}
                 style={globalStyles.input}
                 onChangeText={atualizeAddTaskValue}
@@ -56,7 +56,7 @@ export default function AddTaskContainer({ onClose }) {
             flexDirection: 'row',
             width: '100%',
             paddingVertical: 0,
-            paddingHorizontal: 10
+            paddingHorizontal: 10,
         }}>
             <TextInput
                 placeholder="R$ 0,00"
@@ -70,7 +70,6 @@ export default function AddTaskContainer({ onClose }) {
             </Pressable>
         </View>
 
-
     </View>
 }
 
@@ -81,10 +80,9 @@ const styles = StyleSheet.create({
         marginBottom: 60,
     },
     inputWrapper: {
-        borderRadius: 8,
         padding: 0,
         shadowOffset: { width: 0, height: 1 },
-        width: '100%'
+        width: '100%',
     },
     addButton: {
         backgroundColor: colors.primary,
