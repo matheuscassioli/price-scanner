@@ -16,7 +16,7 @@ export function TasksProvider({ children }) {
     const flatListRef = useRef(null)
 
     useEffect(() => {
-        getTasksInAsyncStorage = async () => {
+        const getTasksInAsyncStorage = async () => {
             try {
                 const jsonValue = await AsyncStorage.getItem('@tasks')
                 if (jsonValue) {
@@ -30,7 +30,7 @@ export function TasksProvider({ children }) {
     }, [])
 
     useEffect(() => {
-        setTaskInAsyncStorage = async () => {
+        const  setTaskInAsyncStorage = async () => {
             try {
                 const jsonValue = JSON.stringify(tasks)
                 await AsyncStorage.setItem('@tasks', jsonValue)
@@ -53,9 +53,7 @@ export function TasksProvider({ children }) {
         setEditableItem('')
         setValueWithCifra('')
         setNewTaskValue('')
-        if (addTaskInputRef.current) {
-            addTaskInputRef.current.focus()
-        }
+        addTaskInputRef.current?.focus()
     }
 
     const deleteTask = (taskId) => {
