@@ -7,8 +7,10 @@ Este é um aplicativo pessoal desenvolvido em **React Native**, criado para prat
 ### Splash Screen Animada  
 
 Ao abrir o app, o usuário é recebido por uma **Splash Screen animada**, que exibe o logo e uma animação de carregamento, criando uma introdução elegante e suave antes de acessar a aplicação.  
-
-![Splash Screen](./assets/splash.jpeg)  
+ 
+<p align="center">
+  <img src="./assets/splash.jpg" width="300" />
+</p>
 
 ---
 
@@ -21,19 +23,25 @@ Após o splash, o usuário é direcionado para a **tela de login**, onde pode in
 
 Os campos possuem validações em tempo real, garantindo que apenas entradas válidas permitam o acesso. A autenticação é gerenciada por um **Contexto**, garantindo que apenas usuários autenticados possam acessar as demais telas.  
 
-![Login Screen](./assets/login.jpeg)  
-
+<p align="center">
+  <img src="./assets/login.jpg" width="400" />
+</p>
+ 
 ---
 
 ### Lista de Tarefas (CRUD)  
 
 Após o login, o usuário acessa a **lista de tarefas**, que permite visualizar, editar e deletar itens. O app utiliza um **FlatList** para exibir as tarefas de forma dinâmica, e cada item pode ser excluído com um efeito de **swipe** suave. É possível editar os itens diretamente na tela e acompanhar a soma total dos valores cadastrados.  
 
-![Lista de Tarefas](./assets/lista.jpeg)  
+<p align="center">
+  <img src="./assets/lista.jpg" width="400" />
+</p>
 
 Na mesma tela, há um botão flutuante que, ao ser pressionado, abre de forma animada os inputs para adicionar um novo item, incluindo o nome e o valor. Assim que o item é adicionado, ele aparece imediatamente na lista e a soma total é atualizada.  
 
-![Adicionar Tarefa](./assets/container.jpeg)  
+<p align="center">
+  <img src="./assets/container.jpg" width="400" />
+</p>
 
 ---
 
@@ -41,7 +49,9 @@ Na mesma tela, há um botão flutuante que, ao ser pressionado, abre de forma an
 
 Além da lista, o app possui uma segunda aba que exibe o **dashboard**, mostrando a quantidade total de tarefas e a soma dos valores. Os números aparecem de forma animada, proporcionando uma visualização dinâmica e intuitiva do resumo das tarefas cadastradas.  
 
-![Dashboard](./assets/dashboard.jpg)  
+<p align="center">
+  <img src="./assets/dashboard.jpg" width="400" />
+</p>
 
 ---
 
