@@ -1,6 +1,7 @@
 import { createContext, useEffect, useRef, useState } from 'react';
 import { showCustomToast } from '../../helpers/helpers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Audio } from 'expo-av';
 
 export const TasksContext = createContext();
 
@@ -30,7 +31,7 @@ export function TasksProvider({ children }) {
     }, [])
 
     useEffect(() => {
-        const  setTaskInAsyncStorage = async () => {
+        const setTaskInAsyncStorage = async () => {
             try {
                 const jsonValue = JSON.stringify(tasks)
                 await AsyncStorage.setItem('@tasks', jsonValue)
@@ -59,10 +60,24 @@ export function TasksProvider({ children }) {
     const deleteTask = (taskId) => {
         const newTasks = tasks.filter(key => key.taskId !== taskId)
         setTasks(newTasks)
+        playDeleteSound();
     }
 
     const atualizeAddTaskValue = (text) => {
         setNewTask(text)
+    }
+
+    async function playDeleteSound() {
+        const { sound } = await Audio.Sound.createAsync(
+            require('../../assets/deletesound.mp3')
+        );
+        await sound.playAsync();
+
+        sound.setOnPlaybackStatusUpdate(status => {
+            if (status.didJustFinish) {
+                sound.unloadAsync();
+            }
+        });
     }
 
     const addTask = () => {
