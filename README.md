@@ -64,7 +64,7 @@ O projeto trabalhou diversos conceitos importantes de React Native, como **compo
 ```bash
 # Clone o repositório
 git clone https://github.com/matheuscassioli/price-scanner
-cd list-tasks
+cd price-scanner
 
 # Instale as dependências
 npm install
